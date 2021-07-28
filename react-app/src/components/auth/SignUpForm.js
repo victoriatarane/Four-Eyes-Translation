@@ -2,20 +2,24 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import styles from '../../css-modules/SignUpForm.module.css';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [vat_number, setVat_number] = useState('');
+  const [translator, setTranslator] = useState(false);
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  // const [created_at, setCreated_at] = useState(new Date());
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const data = await dispatch(signUp(username, email, vat_number, translator, password));
       if (data) {
         setErrors(data)
       }
@@ -30,6 +34,18 @@ const SignUpForm = () => {
     setEmail(e.target.value);
   };
 
+  const updateVat_number = (e) => {
+    setVat_number(e.target.value);
+  };
+
+  const updateTranslator = (e) => {
+    setTranslator(!translator);
+  };
+  
+  // const updateDate = (e) => {
+  //   setCreated_at(new Date());
+  // };
+
   const updatePassword = (e) => {
     setPassword(e.target.value);
   };
@@ -43,7 +59,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
+    <form className={styles.signupForm} onSubmit={onSignUp}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -65,6 +81,24 @@ const SignUpForm = () => {
           name='email'
           onChange={updateEmail}
           value={email}
+        ></input>
+      </div>
+      <div>
+        <label>VAT number (optional)</label>
+        <input
+          type='text'
+          name='vat_number'
+          onChange={updateVat_number}
+          value={vat_number}
+        ></input>
+      </div>
+      <div>
+        <label>Translator</label>
+        <input
+          type='checkbox'
+          name='translator'
+          onChange={updateTranslator}
+          value={translator}
         ></input>
       </div>
       <div>
