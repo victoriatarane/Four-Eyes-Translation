@@ -9,11 +9,14 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    vat_number = db.Column(db.String)
+    translator = db.Column(db.Boolean, default=False)
     hashed_password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime)
 
     orders = db.relationship('Order')
 
-    transactions = db.relationship('Transactions')
+    transactions = db.relationship('Transaction')
 
     @property
     def password(self):
@@ -30,5 +33,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'vat_number': self.vat_number,
+            'translator': self.translator,
+            'created_at': self.created_at
         }

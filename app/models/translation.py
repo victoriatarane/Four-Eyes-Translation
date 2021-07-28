@@ -11,10 +11,6 @@ class Translation(db.Model):
     target_language = db.Column(db.Enum(LanguageChoices))
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
 
-    user = db.relationship('User', back_populates='transactions')
-
-    paymentmethod = db.relationship('PaymentMethod', back_populates='transactions')
-
     def __repr__(self):
         print(self.name)
         return f'<Translation {self.id}>'

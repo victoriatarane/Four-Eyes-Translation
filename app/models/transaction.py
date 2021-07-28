@@ -6,8 +6,12 @@ class Transaction(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    payment_id = db.Column(db.Integer, db.ForeignKey('payments.id'))
+    payment_id = db.Column(db.Integer, db.ForeignKey('paymentmethods.id'))
     total = db.Column(db.Integer, nullable=False)
+
+    user = db.relationship('User', back_populates='transactions')
+
+    paymentmethod = db.relationship('PaymentMethod', back_populates='transactions')
 
     def __repr__(self):
         print(self.name)
