@@ -25,6 +25,13 @@ class Order(db.Model):
     source_language = db.Column(db.Enum(LanguageChoices))
     created_at = db.Column(db.DateTime)
 
+    user = db.relationship('User', back_populates='orders')
+
+    translation = db.relationship('Translation')
+
+    proofreading = db.relationship('Proofreading')
+
+    copywriting = db.relationship('Copywriting')
 
     def __repr__(self):
         print(self.name)

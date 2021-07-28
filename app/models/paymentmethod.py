@@ -13,6 +13,8 @@ class PaymentMethod(db.Model):
     expiration_month = db.Column(db.Integer, nullable=False)
     expiration_year = db.Column(db.Integer, nullable=False)
 
+    transactions = db.relationship('Transaction')
+
     def __repr__(self):
         print(self.name)
         return f'<Payment Method {self.id}>'
