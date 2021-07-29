@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #F1F1F1;
+}
+
+.loginForm {
+    top: 70px;
+    position: fixed;
+    font-family: 'Ropa Sans', sans-serif;
+    color: black;
+    text-shadow: 2px 2px white;
+    font-size: 100%;
+    height: auto;
+
+
+    background-color:#F1F1F1;
+    box-shadow: 0px 5px 20px lightgrey;
+    padding: 2%;
+    border-radius: 20px;
+}
+
+label {
+    font: 400 13.3333px Arial;
+    margin-right: 10px;
+    
+}
+div {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+
+input {
+    height: 2em;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    display: flex;;
+    text-align: start;
+    appearance: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+
+.submitButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    background: #693935;
+    color: white;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+@media screen and (min-width: 600px) {
+    .loginForm {
+        width: 70%;
+        left: 15%;
+        right: 15%;
+    }
+
+}
+@media screen and (max-width: 599px) {
+    .loginForm {
+        width: 95%;
+    }
+}

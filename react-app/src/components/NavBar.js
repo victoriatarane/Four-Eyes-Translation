@@ -2,6 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import styles from '../css-modules/NavBar.module.css';
 
 const NavBar = () => {
   return (
@@ -20,6 +21,11 @@ const NavBar = () => {
         <li>
           <NavLink to='/sign-up' exact={true} activeClassName='active'>
             Sign Up
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to='/order' exact={true} activeClassName='active'>
+            Order
           </NavLink>
         </li>
         <li>

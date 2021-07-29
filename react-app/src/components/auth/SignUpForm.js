@@ -92,7 +92,7 @@ const SignUpForm = () => {
           value={vat_number}
         ></input>
       </div>
-      <div>
+      {/* <div>
         <label>Translator</label>
         <input
           type='checkbox'
@@ -100,7 +100,7 @@ const SignUpForm = () => {
           onChange={updateTranslator}
           value={translator}
         ></input>
-      </div>
+      </div> */}
       <div>
         <label>Password</label>
         <input
@@ -120,7 +120,7 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
-      <button type='submit'>Sign Up</button>
+      <button className={styles.submitButton} type='submit'>Sign Up</button>
     </form>
   );
 };
