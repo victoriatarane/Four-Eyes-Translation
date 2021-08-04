@@ -9,7 +9,7 @@ import Copywriting from './Copywriting';
 
 const Order = () => {
     const [errors, setErrors] = useState([]);
-    const [service, setService] = useState('translation')
+    const [service, setService] = useState('Translation')
     const [wordCount, setWordCount] = useState(0);
     const languages = ['German', 'English', 'Spanish'];
     const fields = ['Science', 'Finance'];
@@ -18,20 +18,16 @@ const Order = () => {
 
     const orderTranslation = (e) => {
         e.preventDefault();
-        
-        currentService = <Translation/>
+        setService('Translation');
         
     }
     const orderProofreading = (e) => {
         e.preventDefault();
-
-        currentService = <Proofreading />
-
+        setService('Proofreading');
     }
     const orderCopywriting = (e) => {
         e.preventDefault();
-        currentService = <Copywriting />
-        
+        setService('Copywriting');
     }
 
     // const onSubmit = async (e) => {
@@ -46,7 +42,7 @@ const Order = () => {
                     <div key={ind}>{error}</div>
                 ))}
             </div>
-            <p>Select service of your choice:</p>
+            <p>Customize service of your choice:</p>
             {/* <div className={styles.selectService}>
                 <input type="radio" id="translation" name="service" value="translation"/>
                     <label>Translation</label><br/>
@@ -69,8 +65,9 @@ const Order = () => {
                 </button><br/>
             </div>
             <div>
-                {currentService}
-                {/* <Translation /> */}
+                {service === 'Translation' ? <Translation/> : null}
+                {service === 'Proofreading' ? <Proofreading /> : null}
+                {service === 'Copywriting' ? <Copywriting /> : null}
             </div>
             {/* <button className={styles.submitButton} type='submit'>Continue</button> */}
         </div>

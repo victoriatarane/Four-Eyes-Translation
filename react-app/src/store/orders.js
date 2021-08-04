@@ -4,7 +4,7 @@ const SET_PROOFREADING = 'orders/SET_PROFFREADING';
 
 const ADD_TRANSLATION = 'orders/ADD_TRANSLATION';
 const ADD_COPYWRITING = 'orders/ADD_COPYWRITING';
-const ADD_PROFFREADING = 'orders/ADD_PROFFREADING';
+const ADD_PROOFREADING = 'orders/ADD_PROFFREADING';
 
 const EDIT_TRANSLATION = 'orders/EDIT_TRANSLATION';
 const EDIT_COPYWRITING = 'orders/EDIT_COPYWRITING';
@@ -33,6 +33,16 @@ const setProofreading = (proofreading) => ({
 const createTranslation = (translation) => ({
     type: ADD_TRANSLATION,
     payload: translation
+});
+
+const createProofreading = (proofreading) => ({
+    type: ADD_PROOFREADING,
+    payload: proofreading
+});
+
+const createCopywriting = (copywriting) => ({
+    type: ADD_COPYWRITING,
+    payload: copywriting
 });
 
 export const getTranslation = () => async (dispatch) => {
@@ -101,6 +111,24 @@ export const addProofreading = (proofreading) => async (dispatch) => {
     }
 }
 
+export const addCopywriting = (copywriting) => async (dispatch) => {
+    const response = await fetch(`/api/copywritings/create/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(copywriting)
+    })
+    if (response.ok) {
+        const newCopywriting = await response.json();
+        dispatch(createTranslation(newCopywriting));
+        return newCopywriting;
+    }
+    else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
 const initialState = {}
 
 export default function reducer(state=initialState, action) {
@@ -125,6 +153,14 @@ export default function reducer(state=initialState, action) {
             });
             return newState;
         case ADD_TRANSLATION:
+            newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        case ADD_PROOFREADING:
+            newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        case ADD_COPYWRITING:
             newState = { ...state };
             newState[action.payload.id] = action.payload;
             return newState;
