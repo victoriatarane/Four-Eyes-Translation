@@ -3,15 +3,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import styles from '../../css-modules/Order.module.css';
+import { addTranslation } from '../../store/orders';
 
 const Translation = () => {
     const [errors, setErrors] = useState([]);
-    const [documentUrl, setDocumentUrl] = useState('');
+    const [documentUrl, setDocumentUrl] = useState('hhhh');
     const [field, setField] = useState('Other')
     const [wordCount, setWordCount] = useState(0);
     const [sourceLanguage, setSourceLanguage] = useState('English');
     const [targetLanguage, setTargetLanguage] = useState('English');
-    
+    const dispatch = useDispatch();
+
     const languages = ['German', 'English', 'Spanish'];
     const fields = ['Science', 'Finance', 'Other'];
 
@@ -28,8 +30,23 @@ const Translation = () => {
         setTargetLanguage(e.target.value)
     }
 
+    const createTranslation = async (e) => {
+        e.preventDefault();
+        const data = await dispatch(addTranslation(
+            documentUrl,
+            field,
+            wordCount,
+            sourceLanguage,
+            targetLanguage,
+        ))
+        console.log(data, "#####")
+        if (data) {
+            setErrors(data)
+        }
+    }
+
     return (
-        <form className={styles.orderForm}>
+        <form onSubmit={createTranslation}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
@@ -38,8 +55,8 @@ const Translation = () => {
             <div>
                 <label>Select topic:</label>
                 <select onChange={updateField}>
-                    {fields.forEach(field =>
-                        <option value={field}>{field}</option>)}
+                    {fields.map(field =>
+                        <option key={field} value={field}>{field}</option>)}
                 </select>
             </div>
             <div>
@@ -53,16 +70,16 @@ const Translation = () => {
             </div>
             <div>
                 <label>Select source language:</label>
-                <select onChange={updateField}>
-                    {languages.forEach(language =>
-                        <option value={language}>{language}</option>)}
+                <select onChange={updateSourceLanguage}>
+                    {languages.map(language =>
+                        <option key={language} value={language}>{language}</option>)}
                 </select>
             </div>
             <div>
                 <label>Select target language:</label>
-                <select onChange={updateField}>
-                    {languages.forEach(language =>
-                        <option value={language}>{language}</option>)}
+                <select onChange={updateTargetLanguage}>
+                    {languages.map(language =>
+                        <option key={language} value={language}>{language}</option>)}
                 </select>
             </div>
             <button className={styles.submitButton} type='submit'>Continue</button>

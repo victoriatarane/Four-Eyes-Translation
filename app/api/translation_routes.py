@@ -49,6 +49,7 @@ def create_translation():
             target_language=form.target_language.data)
         db.session.add(translation)
         db.session.commit()
+        print(translation, '######')
         return translation.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -60,7 +61,7 @@ def update_translation(translation_id):
     if translation is None:
         return {'message': 'No translation found'}, 404
     data = request.get_json()
-    translation.user_id = data["user_id"],
+    # translation.user_id = data["user_id"],
     translation.document_url = data["document_url"],
     translation.field = data["field"],
     translation.word_count = data["word_count"],

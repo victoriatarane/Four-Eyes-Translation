@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import styles from '../../css-modules/Order.module.css';
 import Translation from './Translation';
+import Proofreading from './Proofreading';
+import Copywriting from './Copywriting';
 
 const Order = () => {
     const [errors, setErrors] = useState([]);
@@ -12,20 +14,24 @@ const Order = () => {
     const languages = ['German', 'English', 'Spanish'];
     const fields = ['Science', 'Finance'];
     
+    let currentService = <Translation />
 
     const orderTranslation = (e) => {
         e.preventDefault();
-        return (
-            <Translation/>
-        )
+        
+        currentService = <Translation/>
+        
     }
     const orderProofreading = (e) => {
         e.preventDefault();
 
+        currentService = <Proofreading />
+
     }
     const orderCopywriting = (e) => {
         e.preventDefault();
-
+        currentService = <Copywriting />
+        
     }
 
     // const onSubmit = async (e) => {
@@ -34,7 +40,7 @@ const Order = () => {
     //     console.log(service)
     // }
     return (
-        <form className={styles.orderForm}>
+        <div className={styles.orderForm}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
@@ -62,9 +68,12 @@ const Order = () => {
                     Copywriting
                 </button><br/>
             </div>
-            <Translation/>
-            <button className={styles.submitButton} type='submit'>Continue</button>
-        </form>
+            <div>
+                {currentService}
+                {/* <Translation /> */}
+            </div>
+            {/* <button className={styles.submitButton} type='submit'>Continue</button> */}
+        </div>
     );
 };
 

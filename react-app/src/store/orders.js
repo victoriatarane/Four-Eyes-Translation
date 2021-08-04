@@ -30,10 +30,10 @@ const setProofreading = (proofreading) => ({
     payload: proofreading
 });
 
-// const addOrder = (order) => ({
-//     type: ADD_ORDER,
-//     payload: order
-// });
+const createTranslation = (translation) => ({
+    type: ADD_TRANSLATION,
+    payload: translation
+});
 
 export const getTranslation = () => async (dispatch) => {
     const response = await fetch(`/api/translations`)
@@ -65,6 +65,42 @@ export const getCopywriting = () => async (dispatch) => {
     }
 }
 
+export const addTranslation = (translation) => async (dispatch) => {
+    const response = await fetch(`/api/translations/create/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(translation)
+    })
+    if (response.ok) {
+        const newTranslation = await response.json();
+        dispatch(createTranslation(newTranslation));
+        return newTranslation;
+    }
+    else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+export const addProofreading = (proofreading) => async (dispatch) => {
+    const response = await fetch(`/api/proofreadings/create/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(proofreading)
+    })
+    if (response.ok) {
+        const newProofreading = await response.json();
+        dispatch(createTranslation(newProofreading));
+        return newProofreading;
+    }
+    else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
 const initialState = {}
 
 export default function reducer(state=initialState, action) {
@@ -87,6 +123,10 @@ export default function reducer(state=initialState, action) {
             action.payload.forEach((proofreading) => {
                 newState[proofreading.id] = proofreading;
             });
+            return newState;
+        case ADD_TRANSLATION:
+            newState = { ...state };
+            newState[action.payload.id] = action.payload;
             return newState;
         default: 
             return state;
