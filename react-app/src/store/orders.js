@@ -76,7 +76,7 @@ export const getCopywriting = () => async (dispatch) => {
 }
 
 export const addTranslation = (translation) => async (dispatch) => {
-    const response = await fetch(`/api/translations/create/`, {
+    const response = await fetch(`/api/translations/create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ export const addTranslation = (translation) => async (dispatch) => {
     if (response.ok) {
         const newTranslation = await response.json();
         dispatch(createTranslation(newTranslation));
-        return newTranslation;
+        // return newTranslation;
     }
     else {
         return ['An error occurred. Please try again.']
@@ -94,7 +94,7 @@ export const addTranslation = (translation) => async (dispatch) => {
 }
 
 export const addProofreading = (proofreading) => async (dispatch) => {
-    const response = await fetch(`/api/proofreadings/create/`, {
+    const response = await fetch(`/api/proofreadings/create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -104,7 +104,7 @@ export const addProofreading = (proofreading) => async (dispatch) => {
     if (response.ok) {
         const newProofreading = await response.json();
         dispatch(createTranslation(newProofreading));
-        return newProofreading;
+        // return newProofreading;
     }
     else {
         return ['An error occurred. Please try again.']
@@ -112,7 +112,7 @@ export const addProofreading = (proofreading) => async (dispatch) => {
 }
 
 export const addCopywriting = (copywriting) => async (dispatch) => {
-    const response = await fetch(`/api/copywritings/create/`, {
+    const response = await fetch(`/api/copywritings/create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ export const addCopywriting = (copywriting) => async (dispatch) => {
     if (response.ok) {
         const newCopywriting = await response.json();
         dispatch(createTranslation(newCopywriting));
-        return newCopywriting;
+        // return newCopywriting;
     }
     else {
         return ['An error occurred. Please try again.']

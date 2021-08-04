@@ -10,13 +10,15 @@ class Copywriting(db.Model):
     key_words = db.Column(db.String)
     links = db.Column(db.String)
     field = db.Column(db.String(20), nullable=False)
-    word_count = db.Column(db.Integer, nullable=False)
+    word_count = db.Column(db.String, nullable=False)
     completion_status = db.Column(db.Boolean, default=False)
     language = db.Column(db.String(20), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
+    order = db.relationship('Order')
+
     def __repr__(self):
-        print(self.name)
+        print(self.id)
         return f'<Copywriting {self.id}>'
 
     def to_dict(self):

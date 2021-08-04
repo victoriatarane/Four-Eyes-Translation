@@ -5,9 +5,9 @@ from app.models import Proofreading
 
 
 class NewProofreadingForm(FlaskForm):
-    user_id = StringField('user_id', validators=[DataRequired()])
+    # user_id = StringField('user_id', validators=[DataRequired()])
     document_url = StringField('document_url', validators=[DataRequired()])
     field = StringField('field', validators=[DataRequired()])
     word_count = StringField('word_count', validators=[DataRequired()])
     language = StringField('language', validators=[DataRequired()])
-    created_at = StringField('created_at', validators=[DataRequired()])
+    # created_at = StringField('created_at', validators=[DataRequired()])

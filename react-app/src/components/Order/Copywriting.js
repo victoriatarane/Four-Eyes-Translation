@@ -6,25 +6,25 @@ import styles from '../../css-modules/Order.module.css';
 import { addCopywriting } from '../../store/orders';
 
 const Copywriting = () => {
-    const [errors, setErrors] = useState([]);
-    const [description, setDescription] = useState('');
-    const [keyWords, setKeyWords] = useState('');
-    const [links, setLinks] = useState('');
-    const [field, setField] = useState('Other');
-    const [wordCount, setWordCount] = useState(0);
-    const [sourceLanguage, setSourceLanguage] = useState('English');
-    const [targetLanguage, setTargetLanguage] = useState('English');
-    const dispatch = useDispatch();
-    
     const ranges = ['50-100', '100-500', '500-1000', '1000-5000'];
     const languages = ['German', 'English', 'Spanish'];
     const fields = ['Science', 'Finance', 'Other'];
+    const [errors, setErrors] = useState([]);
+    const [description, setDescription] = useState('');
+    const [key_words, setKey_words] = useState('');
+    const [links, setLinks] = useState('');
+    const [field, setField] = useState('Other');
+    const [word_count, setWord_count] = useState(ranges[0]);
+    const [language, setlanguage] = useState(languages[0]);
+    // const [target_language, setTarget_language] = useState('English');
+    const dispatch = useDispatch();
+    
 
     const updateDescription = (e) => {
         setDescription(e.target.value)
     }
-    const updateKeyWords = (e) => {
-        setKeyWords(e.target.value)
+    const updateKey_words = (e) => {
+        setKey_words(e.target.value)
     }
     const updateLinks = (e) => {
         setLinks(e.target.value)
@@ -33,25 +33,24 @@ const Copywriting = () => {
     const updateField = (e) => {
         setField(e.target.value)
     }
-    const updateWordCount = (e) => {
-        setWordCount(e.target.value)
+    const updateWord_count = (e) => {
+        setWord_count(e.target.value)
     }
     const updateLanguage = (e) => {
-        setSourceLanguage(e.target.value)
+        setlanguage(e.target.value)
     }
 
 
     const createTranslation = async (e) => {
         e.preventDefault();
-        const data = await dispatch(addCopywriting(
+        const data = await dispatch(addCopywriting({
             description, 
-            keyWords,
+            key_words,
             links,
             field,
-            wordCount,
-            sourceLanguage,
-            targetLanguage,
-        ))
+            word_count,
+            language
+        }))
         console.log(data, "#####")
         if (data) {
             setErrors(data)
@@ -85,9 +84,9 @@ const Copywriting = () => {
                 <label>Please list key words you would like to see in your copy:</label>
                 <input
                     type='text'
-                    name='keyWords'
-                    onChange={updateKeyWords}
-                    value={keyWords}>
+                    name='key_words'
+                    onChange={updateKey_words}
+                    value={key_words}>
                 </input>
             </div>
             <div>
@@ -101,7 +100,7 @@ const Copywriting = () => {
             </div>
             <div>
                 <label>Select optimal word count range:</label>
-                <select onChange={updateWordCount}>
+                <select onChange={updateWord_count}>
                     {ranges.map(range =>
                         <option key={range} value={range}>{range}</option>)}
                 </select>

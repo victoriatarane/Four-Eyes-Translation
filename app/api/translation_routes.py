@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.forms import NewTranslationForm
-from app.models import db, Translation
+from app.models import db, Translation, Order
 
 
 translation_routes = Blueprint('translations', __name__)
@@ -36,13 +36,18 @@ def get_all_translations():
 
 #Crate a new translation
 @translation_routes.route('/create', methods=['POST'])
+@login_required
 def create_translation():
+    # if request.method == 'POST':   
     form = NewTranslationForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
     if form.validate_on_submit():
+        user = current_user
+        order = Order(user_id=user.id)
         translation = Translation(
-            # user_id=form.user_id.data,
-            document_url=form.document_url,
+            order=order,
+            document_url=form.document_url.data,
             field=form.field.data,
             word_count=form.word_count.data,
             source_language=form.source_language.data,
@@ -51,7 +56,9 @@ def create_translation():
         db.session.commit()
         print(translation, '######')
         return translation.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    # if request.method == 'GET':
+    #     return {'string': 'value'}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 # write a route to update a translation

@@ -15,7 +15,7 @@ class Transaction(db.Model):
     paymentmethod = db.relationship('PaymentMethod', back_populates='transactions')
 
     def __repr__(self):
-        print(self.name)
+        print(self.id)
         return f'<Transaction {self.id}>'
 
     def to_dict(self):

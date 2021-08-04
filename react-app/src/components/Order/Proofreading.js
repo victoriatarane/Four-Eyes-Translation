@@ -7,9 +7,9 @@ import { addProofreading } from '../../store/orders';
 
 const Proofreading = () => {
     const [errors, setErrors] = useState([]);
-    const [documentUrl, setDocumentUrl] = useState('hhhh');
+    const [document_url, setDocument_url] = useState('hhhh');
     const [field, setField] = useState('Other')
-    const [wordCount, setWordCount] = useState(0);
+    const [word_count, setWord_count] = useState(0);
     const [language, setLanguage] = useState('English');
     // const [targetLanguage, setTargetLanguage] = useState('English');
     const dispatch = useDispatch();
@@ -20,8 +20,8 @@ const Proofreading = () => {
     const updateField = (e) => {
         setField(e.target.value)
     }
-    const updateWordCount = (e) => {
-        setWordCount(e.target.value)
+    const updateWord_count = (e) => {
+        setWord_count(e.target.value)
     }
     // const updateSourceLanguage = (e) => {
     //     setSourceLanguage(e.target.value)
@@ -32,13 +32,13 @@ const Proofreading = () => {
 
     const createProofreading = async (e) => {
         e.preventDefault();
-        const data = await dispatch(addProofreading(
-            documentUrl,
+        const data = await dispatch(addProofreading({
+            document_url,
             field,
-            wordCount,
+            word_count,
             language
             // targetLanguage,
-        ))
+        }))
         console.log(data, "#####")
         if (data) {
             setErrors(data)
@@ -63,9 +63,9 @@ const Proofreading = () => {
                 <label>Word count:</label>
                 <input
                     type='text'
-                    name='wordcount'
-                    onChange={updateWordCount}
-                    value={wordCount}>
+                    name='word_count'
+                    onChange={updateWord_count}
+                    value={word_count}>
                 </input>
             </div>
             {/* <div>

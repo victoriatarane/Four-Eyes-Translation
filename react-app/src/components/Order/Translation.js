@@ -7,11 +7,12 @@ import { addTranslation } from '../../store/orders';
 
 const Translation = () => {
     const [errors, setErrors] = useState([]);
-    const [documentUrl, setDocumentUrl] = useState('hhhh');
+    const [document_url, setDocumentUrl] = useState('hhhh');
     const [field, setField] = useState('Other')
-    const [wordCount, setWordCount] = useState(0);
-    const [sourceLanguage, setSourceLanguage] = useState('English');
-    const [targetLanguage, setTargetLanguage] = useState('English');
+    const [word_count, setWord_count] = useState(0);
+    const [source_language, setSource_language] = useState('English');
+    const [target_language, setTarget_language] = useState('English');
+    const [total, setTotal] = useState(0);
     const dispatch = useDispatch();
 
     const languages = ['German', 'English', 'Spanish'];
@@ -20,25 +21,25 @@ const Translation = () => {
     const updateField = (e) => {
         setField(e.target.value)
     }
-    const updateWordCount = (e) => {
-        setWordCount(e.target.value)
+    const updateWord_count = (e) => {
+        setWord_count(e.target.value)
+        setTotal(e.target.value * 0.16)
     }
-    const updateSourceLanguage = (e) => {
-        setSourceLanguage(e.target.value)
+    const updateSource_language = (e) => {
+        setSource_language(e.target.value)
     }
-    const updateTargetLanguage = (e) => {
-        setTargetLanguage(e.target.value)
+    const updateTarget_language = (e) => {
+        setTarget_language(e.target.value)
     }
-
     const createTranslation = async (e) => {
         e.preventDefault();
-        const data = await dispatch(addTranslation(
-            documentUrl,
+        const data = await dispatch(addTranslation({
+            document_url,
             field,
-            wordCount,
-            sourceLanguage,
-            targetLanguage,
-        ))
+            word_count,
+            source_language,
+            target_language,
+        }))
         console.log(data, "#####")
         if (data) {
             setErrors(data)
@@ -63,24 +64,28 @@ const Translation = () => {
                 <label>Word count:</label>
                 <input 
                     type='text'
-                    name='wordcount'
-                    onChange={updateWordCount}
-                    value={wordCount}>
+                    name='word_count'
+                    onChange={updateWord_count}
+                    value={word_count}>
                 </input>
             </div>
             <div>
                 <label>Select source language:</label>
-                <select onChange={updateSourceLanguage}>
+                <select onChange={updateSource_language}>
                     {languages.map(language =>
                         <option key={language} value={language}>{language}</option>)}
                 </select>
             </div>
             <div>
                 <label>Select target language:</label>
-                <select onChange={updateTargetLanguage}>
+                <select onChange={updateTarget_language}>
                     {languages.map(language =>
                         <option key={language} value={language}>{language}</option>)}
                 </select>
+            </div>
+            <div>
+                <label>Your total:</label>
+                <p>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
             <button className={styles.submitButton} type='submit'>Continue</button>
         </form>

@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.forms import NewProofreadingForm
-from app.models import db, Proofreading
+from app.models import db, Proofreading, Order
 
 
 proofreading_routes = Blueprint('proofreadings', __name__)
@@ -38,18 +38,23 @@ def get_all_proofreadings():
 
 
 @proofreading_routes.route('/create', methods=['POST'])
+@login_required
 def create_proofreading():
     form = NewProofreadingForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        user = current_user
+        order = Order(user_id=user.id)
         proofreading = Proofreading(
             # user_id=form.user_id.data,
-            document_url=form.document_url,
+            order=order,
+            document_url=form.document_url.data,
             field=form.field.data,
             word_count=form.word_count.data,
             language=form.language.data)
         db.session.add(proofreading)
         db.session.commit()
+        print(proofreading, '######')
         return proofreading.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

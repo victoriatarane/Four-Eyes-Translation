@@ -30,7 +30,7 @@ class Order(db.Model):
     copywriting = db.relationship('Copywriting')
 
     def __repr__(self):
-        print(self.name)
+        print(self.id)
         return f'<Order {self.id}>'
 
     def to_dict(self):

@@ -16,13 +16,13 @@ class PaymentMethod(db.Model):
     transactions = db.relationship('Transaction')
 
     def __repr__(self):
-        print(self.name)
+        print(self.id)
         return f'<Payment Method {self.id}>'
 
     def to_dict(self):
         return {
             'id': self.id,
-            'name': self.name,
+            'name': self.id,
             'address': self.address,
             'zip': self.zip,
             'card_number': self.card_number,

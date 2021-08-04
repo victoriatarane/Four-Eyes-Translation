@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.forms import NewCopywritingForm
-from app.models import db, Copywriting
+from app.models import db, Copywriting, Order
 
 
 copywriting_routes = Blueprint('copywritings', __name__)
@@ -38,20 +38,26 @@ def get_all_copywritings():
 
 
 @copywriting_routes.route('/create', methods=['POST'])
+@login_required
 def create_copywriting():
     form = NewCopywritingForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
     if form.validate_on_submit():
+        user = current_user
+        order = Order(user_id=user.id)
         copywriting = Copywriting(
             # user_id=form.user_id.data,
-            description=form.description,
-            key_words=form.key_words,
-            links=form.links,
+            order=order,
+            description=form.description.data,
+            key_words=form.key_words.data,
+            links=form.links.data,
             field=form.field.data,
             word_count=form.word_count.data,
             language=form.language.data)
         db.session.add(copywriting)
         db.session.commit()
+        print(copywriting, '######')
         return copywriting.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
