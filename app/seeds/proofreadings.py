@@ -4,7 +4,7 @@ from app.models import db, Proofreading
 
 # Adds a demo user, you can add other users here if you want
 def seed_proofreadings():
-    proofreading = Proofreading(document_url='asdfjklasd', order_id=4)
+    proofreading = Proofreading(document_url='asdfjklasd', order_id=3, field='Chemistry', word_count=1123, language='Spanish', created_at='2021-08-01')
 
     db.session.add(proofreading)
 
@@ -17,5 +17,5 @@ def seed_proofreadings():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_proofreadings():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE proofreadings RESTART IDENTITY CASCADE;')
     db.session.commit()

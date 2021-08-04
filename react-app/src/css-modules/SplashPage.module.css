@@ -5,15 +5,16 @@ body {
 .logo_img {
     height: 150px;
     width: 150px;
+    border-radius: 50%; 
+    /* object-fit */
 }
 
-div {
+.splashDiv {
     position: static;
     margin-top: 10%;
 
     display: flex;
     flex-direction: column;
-    /* align-self: center; */
     justify-content: center;
     align-items: center;
 }

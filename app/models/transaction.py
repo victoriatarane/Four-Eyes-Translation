@@ -7,6 +7,7 @@ class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     payment_id = db.Column(db.Integer, db.ForeignKey('paymentmethods.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
     total = db.Column(db.Integer, nullable=False)
 
     user = db.relationship('User', back_populates='transactions')

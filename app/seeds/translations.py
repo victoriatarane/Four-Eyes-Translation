@@ -1,13 +1,13 @@
 from app.models import db, Translation
-from app.models.order import LanguageChoices
+# from app.models.order import LanguageChoices
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_translations():
     translation1 = Translation(
-        document_url='Demo', target_language=LanguageChoices.ENGLISH, order_id=1)
+        order_id=1, word_count=12345, document_url='Demo', source_language='German', target_language='English', field='Medicine')
     translation2 = Translation(
-        document_url='marnie', target_language=LanguageChoices.ENGLISH, order_id=2)
+        order_id=2, word_count=12345, document_url='marnie', source_language='German', target_language='English', field='Medicine')
 
     db.session.add_all([translation1, translation2])
 
@@ -20,5 +20,5 @@ def seed_translations():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_translations():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE translations RESTART IDENTITY CASCADE;')
     db.session.commit()

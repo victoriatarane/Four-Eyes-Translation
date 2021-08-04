@@ -92,15 +92,6 @@ const SignUpForm = () => {
           value={vat_number}
         ></input>
       </div>
-      {/* <div>
-        <label>Translator</label>
-        <input
-          type='checkbox'
-          name='translator'
-          onChange={updateTranslator}
-          value={translator}
-        ></input>
-      </div> */}
       <div>
         <label>Password</label>
         <input

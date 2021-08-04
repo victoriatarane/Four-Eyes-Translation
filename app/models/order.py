@@ -1,31 +1,27 @@
 import enum
 from .db import db
 
-class FieldChoices(enum.Enum):
-    CORRESPONDANCE = 'Correspondance'
-    FINANCIAL_DOCUMENTATION = 'Financial Documentation'
-    MARKETING = 'Marketing'
-    MEDICINE = 'Medicine'
-    ENGINEERING = 'Engineering'
+# class FieldChoices(enum.Enum):
+#     CORRESPONDANCE = 'Correspondance'
+#     FINANCIAL_DOCUMENTATION = 'Financial Documentation'
+#     MARKETING = 'Marketing'
+#     MEDICINE = 'Medicine'
+#     ENGINEERING = 'Engineering'
 
-class LanguageChoices(enum.Enum):
-    GERMAN = 'German'
-    SPANISH = 'Spanish'
-    ENGLISH = 'English'
+# class LanguageChoices(enum.Enum):
+#     GERMAN = 'German'
+#     SPANISH = 'Spanish'
+#     ENGLISH = 'English'
 
 class Order(db.Model):
     __tablename__ = 'orders'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    field = db.Column(db.Enum(FieldChoices))
-    word_count = db.Column(db.Integer, nullable=False)
-    payment_status = db.Column(db.Boolean, default=False)
-    transaction_id = db.Column(db.Integer, db.ForeignKey('transactions.id'))
-    source_language = db.Column(db.Enum(LanguageChoices))
-    created_at = db.Column(db.DateTime)
 
     user = db.relationship('User', back_populates='orders')
+
+    transaction = db.relationship('Transaction')
 
     translation = db.relationship('Translation')
 
@@ -46,7 +42,10 @@ class Order(db.Model):
             'payment_status': self.payment_status,
             'transaction_id': self.transaction_id,
             'source_language': self.source_language,
-            'created_at': self.created_at
+            'created_at': self.created_at, 
+            'translation': self.translation.to_dict() if self.translation else None,
+            'copywriting': self.copywriting.to_dict() if self.translation else None,
+            'proofreading': self.proofreading.to_dict() if self.translation else None,
         }
 
 

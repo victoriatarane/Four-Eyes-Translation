@@ -1,17 +1,13 @@
 from app.models import db, Order
-from app.models.order import FieldChoices, LanguageChoices
+# from app.models.order import FieldChoices, LanguageChoices
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_orders():
-    order1 = Order(
-        user_id=1, field=FieldChoices.CORRESPONDANCE, word_count=2000, payment_status=True, transaction_id=1, source_language=LanguageChoices.GERMAN)
-    order2 = Order(
-        user_id=1, field=FieldChoices.ENGINEERING, word_count=2300, payment_status=True, transaction_id=2, source_language=LanguageChoices.GERMAN)
-    order3 = Order(
-        user_id=2, field=FieldChoices.MARKETING, word_count=2001, payment_status=True, transaction_id=3, source_language=LanguageChoices.GERMAN)
-    order4 = Order(
-        user_id=3, field=FieldChoices.MEDICINE, word_count=5000, payment_status=True, transaction_id=4, source_language=LanguageChoices.ENGLISH)
+    order1 = Order(user_id=1)
+    order2 = Order(user_id=1)
+    order3 = Order(user_id=2)
+    order4 = Order(user_id=3)
 
     db.session.add_all([order1, order2, order3, order4])
 
@@ -24,5 +20,5 @@ def seed_orders():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_orders():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE orders RESTART IDENTITY CASCADE;')
     db.session.commit()

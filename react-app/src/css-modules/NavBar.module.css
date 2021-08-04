@@ -18,7 +18,7 @@ li {
   display: inline-block;
 }
 
-/* .profilebutton {
+.profilebutton {
   display: inline-block;
   height: 70px;
   width: 100px;
@@ -28,4 +28,4 @@ li {
   margin-right: 100px;
   background-color: rgb(189 0 38);
   border-radius: 10px;
-} */
+}

@@ -5,7 +5,7 @@ from app.models import db, Copywriting
 # Adds a demo user, you can add other users here if you want
 def seed_copywritings():
     copywriting = Copywriting(
-        description='Blog post about vegan cousine. Describe how different traditional recipies can be slightly adjusted to vegan diet.', key_words='vegan, plant based, trendy, sustainable, delicious, unbelievable, healthy, superfoods, chia seeds, environment, ethical', links='google.com', order_id=3)
+        order_id=3, description='Blog post about vegan cousine. Describe how different traditional recipies can be slightly adjusted to vegan diet.', key_words='vegan, plant based, trendy, sustainable, delicious, unbelievable, healthy, superfoods, chia seeds, environment, ethical', links='google.com', field='Math', word_count=155, language='English', created_at='2021-08-22')
 
     db.session.add(copywriting)
 
@@ -18,5 +18,5 @@ def seed_copywritings():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_copywritings():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE copywritings RESTART IDENTITY CASCADE;')
     db.session.commit()

@@ -36,5 +36,6 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'vat_number': self.vat_number,
             'translator': self.translator,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'orders': [order.to_dict() for order in self.orders],
         }
