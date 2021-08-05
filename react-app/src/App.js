@@ -42,10 +42,10 @@ function App() {
         <Route path='/order' exact={true}>
           <Order />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        </ProtectedRoute> */}
+        <ProtectedRoute path='/profile' exact={true} >
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >

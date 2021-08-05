@@ -1,3 +1,4 @@
+const SET_ORDERS = 'orders/SET_ORDERS';
 const SET_TRANSLATION = 'orders/SET_TRANSLATION';
 const SET_COPYWRITING = 'orders/SET_COPYWRITING';
 const SET_PROOFREADING = 'orders/SET_PROFFREADING';
@@ -14,6 +15,10 @@ const DELETE_TRANSLATION = 'orders/DELETE_TRANSLATION';
 const DELETE_COPYWRITING = 'orders/DELETE_COPYWRITING';
 const DELETE_PROFFREADING = 'orders/DELETE_PROFFREADING';
 
+const setOrders = (orders) => ({
+    type: SET_ORDERS,
+    payload: orders
+});
 
 const setTranslation = (translation) => ({
     type: SET_TRANSLATION,
@@ -44,6 +49,14 @@ const createCopywriting = (copywriting) => ({
     type: ADD_COPYWRITING,
     payload: copywriting
 });
+
+export const getOrders = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/orders/all/${userId}`)
+    if (response.ok) {
+        const orders = await response.json();
+        dispatch(setOrders(orders))
+    }
+}
 
 export const getTranslation = () => async (dispatch) => {
     const response = await fetch(`/api/translations`)
@@ -134,6 +147,12 @@ const initialState = {}
 export default function reducer(state=initialState, action) {
     let newState;
     switch (action.type) {
+        case SET_ORDERS:
+            newState = {...state};
+            action.payload.forEach((order) => {
+                newState[order.id] = order;
+            });
+            return newState;
         case SET_TRANSLATION:
             newState = {...state};
             action.payload.forEach((translation) => {

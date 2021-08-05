@@ -15,9 +15,10 @@ def user_exists(form, field):
 def vat_number_exists(form, field):
     # Checking if username is already in use
     vat_number = field.data
-    user = User.query.filter(User.vat_number == vat_number).first()
-    if user:
-        raise ValidationError('VAT number is already in use.')
+    if vat_number:
+        user = User.query.filter(User.vat_number == vat_number).first()
+        if user:
+            raise ValidationError('VAT number is already in use.')
 
 
 def username_exists(form, field):

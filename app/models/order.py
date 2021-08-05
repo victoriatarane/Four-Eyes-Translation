@@ -34,18 +34,23 @@ class Order(db.Model):
         return f'<Order {self.id}>'
 
     def to_dict(self):
-        return {
-            'id': self.id,
-            'user_id': self.user_id,
-            'field': self.field,
-            'word_count': self.word_count,
-            'payment_status': self.payment_status,
-            'transaction_id': self.transaction_id,
-            'source_language': self.source_language,
-            'created_at': self.created_at, 
-            'translation': self.translation.to_dict() if self.translation else None,
-            'copywriting': self.copywriting.to_dict() if self.translation else None,
-            'proofreading': self.proofreading.to_dict() if self.translation else None,
-        }
+        dict = {'id': self.id, 'user_id': self.user_id}
+        if self.translation:
+            dict['translation'] = self.translation[0].to_dict()
+        elif self.copywriting:
+            dict['copywriting'] = self.copywriting[0].to_dict()
+        elif self.proofreading:
+            dict['proofreading'] = self.proofreading[0].to_dict()
+        return dict
+            # 'field': self.field,
+            # 'word_count': self.word_count,
+            # 'payment_status': self.payment_status,
+            # 'transaction_id': self.transaction_id,
+            # 'source_language': self.source_language,
+            # 'created_at': self.created_at, 
+            # 'translation': self.translation.to_dict() if self.translation else None,
+            # 'copywriting': self.copywriting.to_dict() if self.copywriting else None,
+            # 'proofreading': self.proofreading.to_dict() if self.proofreading else None,
+
 
 
