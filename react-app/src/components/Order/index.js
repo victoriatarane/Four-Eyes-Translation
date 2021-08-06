@@ -7,14 +7,14 @@ import Translation from './Translation';
 import Proofreading from './Proofreading';
 import Copywriting from './Copywriting';
 
-const Order = () => {
+const Order = ({translation, onSubmit}) => {
     const [errors, setErrors] = useState([]);
     const [service, setService] = useState('Translation')
     const [wordCount, setWordCount] = useState(0);
     const languages = ['German', 'English', 'Spanish'];
     const fields = ['Science', 'Finance'];
     
-    let currentService = <Translation />
+    // let currentService = <Translation />
 
     const orderTranslation = (e) => {
         e.preventDefault();
@@ -65,7 +65,7 @@ const Order = () => {
                 </button><br/>
             </div>
             <div>
-                {service === 'Translation' ? <Translation/> : null}
+                {service === 'Translation' ? <Translation translation={translation} onSubmit={onSubmit}/> : null}
                 {service === 'Proofreading' ? <Proofreading /> : null}
                 {service === 'Copywriting' ? <Copywriting /> : null}
             </div>

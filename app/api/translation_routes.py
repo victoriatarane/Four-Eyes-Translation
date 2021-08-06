@@ -107,6 +107,9 @@ def update_translation(translation_id):
 @translation_routes.route('/<int:translation_id>', methods=['DELETE'])
 def delete_translation(translation_id):
     translation = Translation.query.get(translation_id)
+    order = Order.query.get(translation.order_id)
     db.session.delete(translation)
+    print('deleting order', translation.order_id)
+    db.session.delete(order)
     db.session.commit()
     return {'message': 'translation removed'}

@@ -9,6 +9,7 @@ import { deleteTranslation, deleteProofreading, deleteCopywriting } from '../../
 import RenderTranslations from './RenderTranslations';
 import RenderProofreadings from './RenderProofreadings';
 import RenderCopywriting from './RenderCopywritings';
+import Translation from '../Order/Translation';
 
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import SwiperCore, { Navigation, Pagination } from 'swiper';
@@ -55,6 +56,7 @@ function User() {
       <p>Translations</p>
       {translations.length ? (translations.map(translation =>
         <RenderTranslations 
+          key={translation.id}
           translation={translation}
           editOrder={editOrder}
           deleteOrder={deleteOrder}/>
@@ -63,6 +65,7 @@ function User() {
       <p>Proofreading</p>
       {proofreadings.length ? (proofreadings.map(proofreading =>
         <RenderProofreadings
+          key={proofreading.id}
           proofreading={proofreading}
           editOrder={editOrder}
           deleteOrder={deleteOrder} />
@@ -70,6 +73,7 @@ function User() {
       <p>Copy</p>
       {copywritings.length ? (copywritings.map(copywriting =>
         <RenderCopywriting
+          key={copywriting.id}
           copywriting={copywriting}
           editOrder={editOrder}
           deleteOrder={deleteOrder} />

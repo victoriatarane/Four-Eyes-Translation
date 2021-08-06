@@ -7,7 +7,7 @@ import { addTranslation } from '../../store/orders';
 // import UploadFile from './Upload';
 import { editTranslation } from '../../store/orders';
 
-const Translation = ({translation}) => {
+const Translation = ({translation, onSubmit}) => {
     const [errors, setErrors] = useState([]);
     const [document_url, setDocumentUrl] = useState('hhhh');
     const [field, setField] = useState('Other')
@@ -20,8 +20,10 @@ const Translation = ({translation}) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const editOrder = async () => {
-        await dispatch(editTranslation({id: translation.id, field, word_count, source_language, target_language}));
+    const editOrder = async (e) => {
+        e.preventDefault()
+        await dispatch(editTranslation({id: translation.id, order_id: translation.order_id, document_url: translation.document_url, completion_status: translation.completion_status, created_at: translation.created_at, field, word_count, source_language, target_language}));
+        await onSubmit();
         history.push('/profile')
     }
     useEffect(() => {
@@ -79,7 +81,7 @@ const Translation = ({translation}) => {
         }
     }
     return (
-        <form onSubmit={translation ? ()=>editOrder(translation) : createTranslation}>
+        <form onSubmit={translation ? (e)=>editOrder(e) : createTranslation}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
@@ -87,7 +89,7 @@ const Translation = ({translation}) => {
             </div>
             <div>
                 <label>Select topic:</label>
-                <select onChange={updateField}>
+                <select onChange={updateField} value={field}>
                     {fields.map(field =>
                         <option key={field} value={field}>{field}</option>)}
                 </select>
@@ -105,14 +107,14 @@ const Translation = ({translation}) => {
             </div>
             <div>
                 <label>Select source language:</label>
-                <select onChange={updateSource_language}>
+                <select onChange={updateSource_language} value={source_language}>
                     {languages.map(language =>
                         <option key={language} value={source_language}>{language}</option>)}
                 </select>
             </div>
             <div>
                 <label>Select target language:</label>
-                <select onChange={updateTarget_language}>
+                <select onChange={updateTarget_language} value={target_language}>
                     {languages.map(language =>
                         <option key={language} value={target_language}>{language}</option>)}
                 </select>

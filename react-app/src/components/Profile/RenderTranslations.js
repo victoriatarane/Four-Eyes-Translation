@@ -24,14 +24,13 @@ const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
         return (
             <ul className={styles.orderRender} key={translation.translation.id}>
                 <li>Document: 
-                    <a href={translation.translation.document_url} exact activeClassName="activeLink">{translation.translation.field} translation.</a>
+                    <a href={translation.translation.document_url}>{translation.translation.field} translation.</a>
                 </li>
                 <li>Field: {translation.translation.field}</li>
                 <li>Word count: {translation.translation.word_count}</li>
                 <li>Source language: {translation.translation.source_language}</li>
                 <li>Target language: {translation.translation.target_language}</li>
                 <li>Date created: {translation.translation.created_at}</li>
-                {/* <button className="fa-solid fa-pen" /> */}
                 <button className={styles.editButton} onClick={()=>setEdit(!edit)}>Edit<i className="fa-solid fa-pen" /></button>
                 <button className={styles.deleteButton} onClick={() => deleteOrder(translation)}>Delete<i className="fas fa-trash-alt" /></button>
             </ul>

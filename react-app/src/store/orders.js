@@ -233,7 +233,7 @@ export const deleteTranslation = (translation) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json();
-        dispatch(updateCopywriting(data))
+        dispatch(removeTranslation(data))
         if (data.errors) {
             return;
         }
@@ -302,9 +302,11 @@ export default function reducer(state=initialState, action) {
         case EDIT_TRANSLATION:
             newState = {...state};
             newState.translation = [...state.translation];
-            // newState[action.payload.id] = action.payload;
             index = newState.translation.findIndex((translation) => translation.id === action.payload.id)
-            newState.translation.splice(index, 1, action.payload)
+            newState.translation.splice(index, 1)
+            // newState[action.payload.id] = action.payload;
+            newState = { ...state };
+            newState[action.payload.id] = action.payload;
             return newState;
         case EDIT_PROOFREADING:
             newState = { ...state };
