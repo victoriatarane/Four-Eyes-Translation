@@ -2,6 +2,8 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.forms import NewProofreadingForm
 from app.models import db, Proofreading, Order
+from app.s3_helpers import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 
 
 proofreading_routes = Blueprint('proofreadings', __name__)
@@ -40,7 +42,27 @@ def get_all_proofreadings():
 @proofreading_routes.route('/create', methods=['POST'])
 @login_required
 def create_proofreading():
-    form = NewProofreadingForm()
+    if "file" not in request.files:
+        return {"errors": "document required"}, 400
+
+    file = request.files["file"]
+
+    if not allowed_file(file.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    file.filename = get_unique_filename(file.filename)
+
+    upload = upload_file_to_s3(file)
+
+    if "document_url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return upload, 400
+
+    document_url = upload["document_url"]
+    form = NewProofreadingForm(request.form)
+    form['document_url'].data = document_url
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = current_user
@@ -48,7 +70,6 @@ def create_proofreading():
         db.session.add(order)
         db.session.commit()
         proofreading = Proofreading(
-            # user_id=form.user_id.data,
             order_id=order.id,
             document_url=form.document_url.data,
             field=form.field.data,

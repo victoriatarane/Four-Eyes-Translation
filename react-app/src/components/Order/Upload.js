@@ -24,7 +24,7 @@ const UploadFile = () => {
         });
         if (res.ok) {
             await res.json();
-            setFileLoading(false);
+            setFileLoading(true);
             history.push("/documents");
         }
         else {
@@ -38,19 +38,20 @@ const UploadFile = () => {
     const updateFile = (e) => {
         const file = e.target.files[0];
         setFile(file);
+        setDocumentUrl(file)
         console.log(file)
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div>
             <input
                 type="file"
                 accept="file/*"
                 onChange={updateFile}
+                // value={document_url}
             />
-            <button type="submit">Upload</button>
             {(fileLoading) && <p>Loading...</p>}
-        </form>
+        </div>
     )
 }
 

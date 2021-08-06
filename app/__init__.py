@@ -12,6 +12,7 @@ from .api.order_routes import order_routes
 from .api.translation_routes import translation_routes
 from .api.copywriting_routes import copywriting_routes
 from .api.proofreading_routes import proofreading_routes
+# from .api.aws_routes import aws_routes
 
 from .seeds import seed_commands
 
@@ -39,6 +40,7 @@ app.register_blueprint(order_routes, url_prefix='/api/orders')
 app.register_blueprint(translation_routes, url_prefix='/api/translations')
 app.register_blueprint(proofreading_routes, url_prefix='/api/proofreadings')
 app.register_blueprint(copywriting_routes, url_prefix='/api/copywritings')
+# app.register_blueprint(aws_routes, url_prefix='/api/documens')
 db.init_app(app)
 Migrate(app, db)
 

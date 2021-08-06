@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
+// import { signUp } from '../../store/session';
 import styles from '../../css-modules/Order.module.css';
 import { addTranslation } from '../../store/orders';
-import UploadFile from './Upload';
+// import UploadFile from './Upload';
+import { editTranslation } from '../../store/orders';
 
 const Translation = ({translation}) => {
     const [errors, setErrors] = useState([]);
@@ -14,9 +15,15 @@ const Translation = ({translation}) => {
     const [source_language, setSource_language] = useState('English');
     const [target_language, setTarget_language] = useState('English');
     const [total, setTotal] = useState(0);
+    const [file, setFile] = useState(null);
+    const [fileLoading, setFileLoading] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const editOrder = async () => {
+        await dispatch(editTranslation({id: translation.id, field, word_count, source_language, target_language}));
+        history.push('/profile')
+    }
     useEffect(() => {
         if (translation) {
             setDocumentUrl(translation.document_url)
@@ -25,7 +32,7 @@ const Translation = ({translation}) => {
             setSource_language(translation.source_language)
             setTarget_language(translation.target_language)
         }
-    }, [translation])
+    }, [])
 
     const languages = ['', 'German', 'English', 'Spanish'];
     const fields = ['', 'Science', 'Finance', 'Other'];
@@ -43,27 +50,36 @@ const Translation = ({translation}) => {
     const updateTarget_language = (e) => {
         setTarget_language(e.target.value)
     }
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        setFile(file);
+        setDocumentUrl(file)
+        console.log(file)
+    }
     const createTranslation = async (e) => {
         e.preventDefault();
-        // setDocumentUrl(file)
-        const data = await dispatch(addTranslation({
-            document_url,
-            field,
-            word_count,
-            source_language,
-            target_language,
-        }))
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("document_url", document_url);
+        formData.append("field", field);
+        formData.append("word_count", word_count);
+        formData.append("source_language", source_language);
+        formData.append("target_language", target_language);
+        setFileLoading(true);
+        const data = await dispatch(addTranslation(formData))
         console.log(data, "#####")
         if (data) {
             setErrors(data)
         } else {
+            console.log(field, word_count, source_language)
+            console.log(translation, 'translation')
+            setFileLoading(false);
             history.push('/profile')
         }
     }
-
     return (
-        // <form onSubmit={(e) => <UploadFile/>}>
-        <form onSubmit={createTranslation}>
+        <form onSubmit={translation ? ()=>editOrder(translation) : createTranslation}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
@@ -82,7 +98,9 @@ const Translation = ({translation}) => {
                     type='text'
                     name='word_count'
                     onChange={updateWord_count}
-                    value={word_count}>
+                    value={word_count}
+                    // defaultValue={word_count}
+                    >
                 </input>
             </div>
             <div>
@@ -99,7 +117,15 @@ const Translation = ({translation}) => {
                         <option key={language} value={target_language}>{language}</option>)}
                 </select>
             </div>
-            <UploadFile />
+            <div>
+                <input
+                    type="file"
+                    accept="file/*"
+                    onChange={updateFile}
+                    // value={document_url}
+                />
+                {(fileLoading) && <p>Loading...</p>}
+            </div>
             <div>
                 <label>Your total:</label>
                 <p>${Number.parseFloat(total).toFixed(2)}</p>

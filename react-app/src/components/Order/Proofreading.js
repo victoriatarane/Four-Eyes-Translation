@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
+// import { signUp } from '../../store/session';
 import styles from '../../css-modules/Order.module.css';
 import { addProofreading } from '../../store/orders';
-import UploadFile from './Upload';
+// import UploadFile from './Upload';
+import { editProofreading } from '../../store/orders';
 
 const Proofreading = ({proofreading}) => {
     const [errors, setErrors] = useState([]);
     const [document_url, setDocument_url] = useState('hhhh');
+    const [file, setFile] = useState(null);
     const [field, setField] = useState('Other')
     const [word_count, setWord_count] = useState(0);
     const [language, setLanguage] = useState('English');
     const [total, setTotal] = useState(0);
+    const [fileLoading, setFileLoading] = useState(false);
     // const [targetLanguage, setTargetLanguage] = useState('English');
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const editOrder = async () => {
+        await dispatch(editProofreading({ id: proofreading.id, field, word_count, language }));
+        history.push('/profile')
+    }
 
     useEffect(() => {
         if (proofreading) {
@@ -25,7 +33,7 @@ const Proofreading = ({proofreading}) => {
             setLanguage(proofreading.language)
             // setTotal(proofreading.total)
         }
-    }, [proofreading])
+    }, [])
 
     const languages = ['', 'German', 'English', 'Spanish'];
     const fields = ['', 'Science', 'Finance', 'Other'];
@@ -44,23 +52,33 @@ const Proofreading = ({proofreading}) => {
         setLanguage(e.target.value)
     }
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        setFile(file);
+        setDocument_url(file)
+        console.log(file)
+    }
+
     const createProofreading = async (e) => {
         e.preventDefault();
-        const data = await dispatch(addProofreading({
-            document_url,
-            field,
-            word_count,
-            language
-            // targetLanguage,
-        }))
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("document_url", document_url);
+        formData.append("field", field);
+        formData.append("word_count", word_count);
+        formData.append("language", language);
+        setFileLoading(true);
+        const data = await dispatch(addProofreading(formData))
         console.log(data, "#####")
         if (data) {
             setErrors(data)
         } else {
+            setFileLoading(false);
             history.push('/profile')
         }
     }
-
+    console.log(field, word_count, language)
+    console.log(proofreading, 'proofreading')
     return (
         <form onSubmit={createProofreading}>
             <div>
@@ -98,7 +116,15 @@ const Proofreading = ({proofreading}) => {
                         <option key={language} value={language}>{language}</option>)}
                 </select>
             </div>
-            <UploadFile />
+            <div>
+                <input
+                    type="file"
+                    accept="file/*"
+                    onChange={updateFile}
+                // value={document_url}
+                />
+                {(fileLoading) && <p>Loading...</p>}
+            </div>
             <div>
                 <label>Your total:</label>
                 <p>${Number.parseFloat(total).toFixed(2)}</p>

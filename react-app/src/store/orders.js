@@ -118,13 +118,13 @@ export const getCopywriting = () => async (dispatch) => {
     }
 }
 
-export const addTranslation = (translation) => async (dispatch) => {
+export const addTranslation = (formData) => async (dispatch) => {
     const response = await fetch(`/api/translations/create`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(translation)
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // },
+        body: formData
     })
     if (response.ok) {
         const newTranslation = await response.json();
@@ -136,13 +136,13 @@ export const addTranslation = (translation) => async (dispatch) => {
     }
 }
 
-export const addProofreading = (proofreading) => async (dispatch) => {
+export const addProofreading = (formData) => async (dispatch) => {
     const response = await fetch(`/api/proofreadings/create`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(proofreading)
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // },
+        body: formData
     })
     if (response.ok) {
         const newProofreading = await response.json();

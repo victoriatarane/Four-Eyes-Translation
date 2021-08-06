@@ -3,7 +3,7 @@ from app.models import db, Translation, Proofreading
 from flask_login import current_user, login_required
 from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename)
 
-file_routes = Blueprint("files", __name__)
+file_routes = Blueprint("documents", __name__)
 
 
 @file_routes.route("", methods=["POST"])

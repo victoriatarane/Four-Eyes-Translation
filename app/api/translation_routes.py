@@ -2,7 +2,8 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.forms import NewTranslationForm
 from app.models import db, Translation, Order
-
+from app.s3_helpers import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 
 translation_routes = Blueprint('translations', __name__)
 
@@ -41,9 +42,29 @@ def get_all_translations():
 @login_required
 def create_translation():
     # if request.method == 'POST':   
-    form = NewTranslationForm()
+    if "file" not in request.files:
+        return {"errors": "document required"}, 400
+
+    file = request.files["file"]
+
+    if not allowed_file(file.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    file.filename = get_unique_filename(file.filename)
+
+    upload = upload_file_to_s3(file)
+
+    if "document_url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return upload, 400
+
+    document_url = upload["document_url"]
+    # flask_login allows us to get the current user from the request
+    form = NewTranslationForm(request.form)
+    form['document_url'].data = document_url
     form['csrf_token'].data = request.cookies['csrf_token']
-    # print(current_user.orders, 'line 46')
     if form.validate_on_submit():
         user = current_user
         order = Order(user_id=user.id)
@@ -73,7 +94,7 @@ def update_translation(translation_id):
         return {'message': 'No translation found'}, 404
     data = request.get_json()
     # translation.user_id = data["user_id"],
-    translation.document_url = data["document_url"],
+    # translation.document_url = data["document_url"],
     translation.field = data["field"],
     translation.word_count = data["word_count"],
     translation.source_language = data["source_language"],

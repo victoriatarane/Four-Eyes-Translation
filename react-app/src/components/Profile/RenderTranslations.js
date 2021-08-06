@@ -1,23 +1,31 @@
 import styles from '../../css-modules/Profile.module.css';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Translation from '../Order/'
+// import { NavLink } from 'react-router-dom';
 
 const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
-    const makeChanges = (translation) => {
-        editOrder(translation)
-    }
+    // const makeChanges = (translation) => {
+    //     editOrder(translation)
+    // }
+    // useEffect(()=> {
+    //     editOrder(translation)
+    // }, [])
+    console.log(translation)
     const [edit, setEdit] = useState(false);
     if (edit === true) {
         // setEdit(!edit)
+        console.log(translation, 'line 15')
         return (
             <Translation 
-                translaton={translation.translation}
+                translation={translation.translation}
                 onSubmit={()=>setEdit(!edit)}/>
         )
     } else {
         return (
             <ul className={styles.orderRender} key={translation.translation.id}>
-                <li>Document: {translation.translation.document_url}</li>
+                <li>Document: 
+                    <a href={translation.translation.document_url} exact activeClassName="activeLink">{translation.translation.field} translation.</a>
+                </li>
                 <li>Field: {translation.translation.field}</li>
                 <li>Word count: {translation.translation.word_count}</li>
                 <li>Source language: {translation.translation.source_language}</li>

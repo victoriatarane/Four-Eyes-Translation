@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import styles from '../../css-modules/Order.module.css';
 import { addCopywriting } from '../../store/orders';
+import { editCopywriting } from '../../store/orders';
 
 const Copywriting = ({copywriting}) => {
     const ranges = ['', '50-100', '100-500', '500-1000', '1000-5000'];

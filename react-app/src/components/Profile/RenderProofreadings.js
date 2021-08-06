@@ -2,6 +2,7 @@
 import styles from '../../css-modules/Profile.module.css';
 import {useState} from 'react';
 import Proofreading from '../Order/Proofreading';
+import { NavLink } from 'react-router-dom';
 
 const RenderProofreadings = ({ proofreading, editOrder, deleteOrder }) => {
     const makeChanges = (proofreading) => {
@@ -23,7 +24,7 @@ const RenderProofreadings = ({ proofreading, editOrder, deleteOrder }) => {
     } else {
         return (
             <ul className={styles.orderRender} key={proofreading.proofreading.id}>
-                <li>Document: {proofreading.proofreading.document_url}</li>
+                <li>Document: <a href={proofreading.proofreading.document_url} exact activeClassName="activeLink">{proofreading.proofreading.field} translation.</a></li>
                 <li>Field: {proofreading.proofreading.field}</li>
                 <li>Word count: {proofreading.proofreading.word_count}</li>
                 <li>Language: {proofreading.proofreading.language}</li>

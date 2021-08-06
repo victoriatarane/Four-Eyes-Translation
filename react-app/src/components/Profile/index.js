@@ -23,7 +23,7 @@ function User() {
   const translations = useSelector((state) => state.session.user.orders.filter(order=>order.translation));
   const proofreadings = useSelector((state) => state.session.user.orders.filter(order => order.proofreading));
   const copywritings = useSelector((state) => state.session.user.orders.filter(order=>order.copywriting));
-
+  
 
 
   const editOrder = async (order) => {
