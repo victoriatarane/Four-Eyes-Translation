@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import styles from '../../css-modules/Order.module.css';
 import { addTranslation } from '../../store/orders';
+import UploadFile from './Upload';
 
-const Translation = () => {
+const Translation = ({translation}) => {
     const [errors, setErrors] = useState([]);
     const [document_url, setDocumentUrl] = useState('hhhh');
     const [field, setField] = useState('Other')
@@ -14,9 +15,20 @@ const Translation = () => {
     const [target_language, setTarget_language] = useState('English');
     const [total, setTotal] = useState(0);
     const dispatch = useDispatch();
+    const history = useHistory();
 
-    const languages = ['German', 'English', 'Spanish'];
-    const fields = ['Science', 'Finance', 'Other'];
+    useEffect(() => {
+        if (translation) {
+            setDocumentUrl(translation.document_url)
+            setField(translation.field)
+            setWord_count(translation.word_count)
+            setSource_language(translation.source_language)
+            setTarget_language(translation.target_language)
+        }
+    }, [translation])
+
+    const languages = ['', 'German', 'English', 'Spanish'];
+    const fields = ['', 'Science', 'Finance', 'Other'];
 
     const updateField = (e) => {
         setField(e.target.value)
@@ -33,6 +45,7 @@ const Translation = () => {
     }
     const createTranslation = async (e) => {
         e.preventDefault();
+        // setDocumentUrl(file)
         const data = await dispatch(addTranslation({
             document_url,
             field,
@@ -43,10 +56,13 @@ const Translation = () => {
         console.log(data, "#####")
         if (data) {
             setErrors(data)
+        } else {
+            history.push('/profile')
         }
     }
 
     return (
+        // <form onSubmit={(e) => <UploadFile/>}>
         <form onSubmit={createTranslation}>
             <div>
                 {errors.map((error, ind) => (
@@ -73,21 +89,22 @@ const Translation = () => {
                 <label>Select source language:</label>
                 <select onChange={updateSource_language}>
                     {languages.map(language =>
-                        <option key={language} value={language}>{language}</option>)}
+                        <option key={language} value={source_language}>{language}</option>)}
                 </select>
             </div>
             <div>
                 <label>Select target language:</label>
                 <select onChange={updateTarget_language}>
                     {languages.map(language =>
-                        <option key={language} value={language}>{language}</option>)}
+                        <option key={language} value={target_language}>{language}</option>)}
                 </select>
             </div>
+            <UploadFile />
             <div>
                 <label>Your total:</label>
                 <p>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
-            <button className={styles.submitButton} type='submit'>Continue</button>
+            <button className={styles.submitButton} type='submit'>Submit</button>
         </form>
     );
 };

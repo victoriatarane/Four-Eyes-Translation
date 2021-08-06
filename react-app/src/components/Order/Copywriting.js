@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import styles from '../../css-modules/Order.module.css';
 import { addCopywriting } from '../../store/orders';
 
-const Copywriting = () => {
-    const ranges = ['50-100', '100-500', '500-1000', '1000-5000'];
-    const languages = ['German', 'English', 'Spanish'];
-    const fields = ['Science', 'Finance', 'Other'];
+const Copywriting = ({copywriting}) => {
+    const ranges = ['', '50-100', '100-500', '500-1000', '1000-5000'];
+    const languages = ['', 'German', 'English', 'Spanish'];
+    const fields = ['', 'Science', 'Finance', 'Other'];
     const [errors, setErrors] = useState([]);
     const [description, setDescription] = useState('');
     const [key_words, setKey_words] = useState('');
@@ -16,9 +16,22 @@ const Copywriting = () => {
     const [field, setField] = useState('Other');
     const [word_count, setWord_count] = useState(ranges[0]);
     const [language, setlanguage] = useState(languages[0]);
+    const [total, setTotal] = useState(0);
     // const [target_language, setTarget_language] = useState('English');
     const dispatch = useDispatch();
+    const history = useHistory();
     
+    useEffect(() => {
+        if (copywriting) {
+            setDescription(copywriting.description)
+            setKey_words(copywriting.key_words)
+            setLinks(copywriting.links)
+            setField(copywriting.field)
+            setWord_count(copywriting.word_count)
+            language(copywriting.language)
+            setTotal(copywriting.total)
+        }
+    }, [copywriting])
 
     const updateDescription = (e) => {
         setDescription(e.target.value)
@@ -35,6 +48,17 @@ const Copywriting = () => {
     }
     const updateWord_count = (e) => {
         setWord_count(e.target.value)
+        if (e.target.value == '50-100'){
+            setTotal(40)
+        } else if (e.target.value == '100-500'){
+            setTotal(70)
+        } else if (e.target.value == '500-1000'){
+            setTotal(100)
+        } else if (e.target.value == '1000-5000'){
+            setTotal(150)
+        } else {
+            setErrors(['Please select desired word count range.'])
+        }
     }
     const updateLanguage = (e) => {
         setlanguage(e.target.value)
@@ -54,6 +78,8 @@ const Copywriting = () => {
         console.log(data, "#####")
         if (data) {
             setErrors(data)
+        } else {
+            history.push('/profile')
         }
     }
 
@@ -111,6 +137,10 @@ const Copywriting = () => {
                     {languages.map(language =>
                         <option key={language} value={language}>{language}</option>)}
                 </select>
+            </div>
+            <div>
+                <label>Your total:</label>
+                <p>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
             <button className={styles.submitButton} type='submit'>Continue</button>
         </form>

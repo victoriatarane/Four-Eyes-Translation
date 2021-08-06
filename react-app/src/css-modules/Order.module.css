@@ -1,6 +1,6 @@
 .orderForm {
     top: 70px;
-    position: fixed;
+    /* position: fixed; */
     font-family: 'Ropa Sans', sans-serif;
     color: white;
     text-shadow: 2px 2px black;

@@ -25,14 +25,16 @@ def get_translation(translation_id):
     return translation.to_dict()
 
 # Get translations by userID
-@translation_routes.route('/all', methods=['GET'])
+@translation_routes.route('/', methods=['GET'])
+# @login_required
 # @translation_routes.route('/all/:user_id', methods=['GET'])
 def get_all_translations():
     # print('UserId from get translation api route---------------------------------', user_id)
     orders = current_user.orders
+    print(current_user.orders, 'CURRENT USER!!!@@@@####$$$')
     # translation_orders = list(filter(lambda order: order.translation, orders))
     # print('translationS from api get all------------', translations)
-    return {"translations": [order.translation.to_dict() for order in orders if order.translation]}
+    return {"translations": [order.translations.to_dict() for order in orders if order.translations]}
 
 #Crate a new translation
 @translation_routes.route('/create', methods=['POST'])
@@ -41,12 +43,14 @@ def create_translation():
     # if request.method == 'POST':   
     form = NewTranslationForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print(form.data)
+    # print(current_user.orders, 'line 46')
     if form.validate_on_submit():
         user = current_user
         order = Order(user_id=user.id)
+        db.session.add(order)
+        db.session.commit()
         translation = Translation(
-            order=order,
+            order_id=order.id,
             document_url=form.document_url.data,
             field=form.field.data,
             word_count=form.word_count.data,

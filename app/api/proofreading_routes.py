@@ -25,14 +25,14 @@ def get_proofreading(proofreading_id):
     return proofreading.to_dict()
 
 # Get proofreadings by userID
-@proofreading_routes.route('/all', methods=['GET'])
+@proofreading_routes.route('/', methods=['GET'])
 # @proofreading_routes.route('/all/:user_id', methods=['GET'])
 def get_all_proofreadings():
     # print('UserId from get proofreading api route---------------------------------', user_id)
     orders = current_user.orders
     # proofreading_orders = list(filter(lambda order: order.proofreading, orders))
     # print('proofreadingS from api get all------------', proofreadings)
-    return {"proofreadings": [order.proofreading.to_dict() for order in orders if order.proofreading]}
+    return {"proofreadings": [order.proofreadings.to_dict() for order in orders if order.proofreadings]}
 
 #Crate a new proofreading
 
@@ -45,9 +45,11 @@ def create_proofreading():
     if form.validate_on_submit():
         user = current_user
         order = Order(user_id=user.id)
+        db.session.add(order)
+        db.session.commit()
         proofreading = Proofreading(
             # user_id=form.user_id.data,
-            order=order,
+            order_id=order.id,
             document_url=form.document_url.data,
             field=form.field.data,
             word_count=form.word_count.data,
@@ -66,7 +68,7 @@ def update_proofreading(proofreading_id):
     if proofreading is None:
         return {'message': 'No proofreading found'}, 404
     data = request.get_json()
-    proofreading.user_id = data["user_id"],
+    # proofreading.user_id = data["user_id"],
     proofreading.document_url = data["document_url"],
     proofreading.field = data["field"],
     proofreading.word_count = data["word_count"],

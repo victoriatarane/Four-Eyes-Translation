@@ -25,14 +25,14 @@ def get_copywriting(copywriting_id):
     return copywriting.to_dict()
 
 # Get Copy by userID
-@copywriting_routes.route('/all', methods=['GET'])
+@copywriting_routes.route('/', methods=['GET'])
 # @copywriting_routes.route('/all/:user_id', methods=['GET'])
 def get_all_copywritings():
     orders = current_user.orders
     # print('UserId from get Copywriting api route---------------------------------', user_id)
     # copywritings = Copywriting.query.filter(Copywriting.user_id == user_id).all()
     # print('CopywritingS from api get all------------', copywritings)
-    return {"copywritings": [order.copywriting.to_dict() for order in orders if orders.copywriting]}
+    return {"copywritings": [order.copywritings.to_dict() for order in orders if orders.copywritings]}
 
 #Crate a new Copywriting
 
@@ -46,9 +46,11 @@ def create_copywriting():
     if form.validate_on_submit():
         user = current_user
         order = Order(user_id=user.id)
+        db.session.add(order)
+        db.session.commit()
         copywriting = Copywriting(
             # user_id=form.user_id.data,
-            order=order,
+            order_id=order.id,
             description=form.description.data,
             key_words=form.key_words.data,
             links=form.links.data,

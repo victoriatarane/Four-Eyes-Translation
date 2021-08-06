@@ -6,10 +6,11 @@ nav {
   background-image: url("../components/assets/main_bg_top_2.png");
   /* background-image: url("/Users/Vic/Desktop/aA/react_tunes/react_tunes/frontend/src/marbles.jpeg"); */
   /* background-position: center right; */
-  position: fixed;
+  position: sticky;
   top: 0px; 
   width: 100%;
   margin-left: 0px;
+  /* z-index: 5; */
 }
 
 li {

@@ -21,36 +21,41 @@ class Order(db.Model):
 
     user = db.relationship('User', back_populates='orders')
 
-    transaction = db.relationship('Transaction')
+    transactions = db.relationship('Transaction')
 
-    translation = db.relationship('Translation')
+    translations = db.relationship('Translation', back_populates='orders')
 
-    proofreading = db.relationship('Proofreading')
+    proofreadings = db.relationship('Proofreading', back_populates='orders')
 
-    copywriting = db.relationship('Copywriting')
+    copywritings = db.relationship('Copywriting', back_populates='orders')
 
     def __repr__(self):
         print(self.id)
         return f'<Order {self.id}>'
 
     def to_dict(self):
-        dict = {'id': self.id, 'user_id': self.user_id}
-        if self.translation:
-            dict['translation'] = self.translation[0].to_dict()
-        elif self.copywriting:
-            dict['copywriting'] = self.copywriting[0].to_dict()
-        elif self.proofreading:
-            dict['proofreading'] = self.proofreading[0].to_dict()
-        return dict
+        # dict = {'id': self.id, 'user_id': self.user_id}
+        # print(self.translations, 'SELF###$$$')
+        # if self.translations:
+        #     dict['translations'] = self.translations[0].to_dict()
+        # elif self.copywritings:
+        #     dict['copywritings'] = self.copywritings[0].to_dict()
+        # elif self.proofreadings:
+        #     dict['proofreadings'] = self.proofreadings[0].to_dict()
+        # else:
+        #     dict['test'] = 'string'
+        return {
+            'id': self.id, 
+            'user_id': self.user_id,
             # 'field': self.field,
             # 'word_count': self.word_count,
             # 'payment_status': self.payment_status,
             # 'transaction_id': self.transaction_id,
             # 'source_language': self.source_language,
             # 'created_at': self.created_at, 
-            # 'translation': self.translation.to_dict() if self.translation else None,
-            # 'copywriting': self.copywriting.to_dict() if self.copywriting else None,
-            # 'proofreading': self.proofreading.to_dict() if self.proofreading else None,
-
+            'translation': self.translations[0].to_dict() if self.translations else None,
+            'copywriting': self.copywritings[0].to_dict() if self.copywritings else None,
+            'proofreading': self.proofreadings[0].to_dict() if self.proofreadings else None,
+        }
 
 

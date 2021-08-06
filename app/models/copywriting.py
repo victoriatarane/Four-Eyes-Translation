@@ -15,7 +15,7 @@ class Copywriting(db.Model):
     language = db.Column(db.String(20), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
-    order = db.relationship('Order')
+    orders = db.relationship('Order', back_populates='copywritings')
 
     def __repr__(self):
         print(self.id)

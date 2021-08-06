@@ -9,11 +9,11 @@ const ADD_PROOFREADING = 'orders/ADD_PROFFREADING';
 
 const EDIT_TRANSLATION = 'orders/EDIT_TRANSLATION';
 const EDIT_COPYWRITING = 'orders/EDIT_COPYWRITING';
-const EDIT_PROFFREADING = 'orders/EDIT_PROFFREADING';
+const EDIT_PROOFREADING = 'orders/EDIT_PROFFREADING';
 
 const DELETE_TRANSLATION = 'orders/DELETE_TRANSLATION';
 const DELETE_COPYWRITING = 'orders/DELETE_COPYWRITING';
-const DELETE_PROFFREADING = 'orders/DELETE_PROFFREADING';
+const DELETE_PROOFREADING = 'orders/DELETE_PROFFREADING';
 
 const setOrders = (orders) => ({
     type: SET_ORDERS,
@@ -50,6 +50,36 @@ const createCopywriting = (copywriting) => ({
     payload: copywriting
 });
 
+const updateTranslation = (translation) => ({
+    type: EDIT_TRANSLATION,
+    payload: translation
+});
+
+const updateProofreading = (proofreading) => ({
+    type: EDIT_PROOFREADING,
+    payload: proofreading
+});
+
+const updateCopywriting = (copywriting) => ({
+    type: EDIT_COPYWRITING,
+    payload: copywriting
+});
+
+const removeTranslation = (translationId) => ({
+    type: DELETE_TRANSLATION,
+    payload: translationId
+});
+
+const removeProofreading = (proofreadingId) => ({
+    type: DELETE_PROOFREADING,
+    payload: proofreadingId
+});
+
+const removeCopywriting = (copywritingId) => ({
+    type: DELETE_COPYWRITING,
+    payload: copywritingId
+});
+
 export const getOrders = (userId) => async (dispatch) => {
     const response = await fetch(`/api/orders/all/${userId}`)
     if (response.ok) {
@@ -69,7 +99,7 @@ export const getTranslation = () => async (dispatch) => {
 }
 
 export const getProofreading = () => async (dispatch) => {
-    const response = await fetch(`/api/proofreading`)
+    const response = await fetch(`/api/proofreadings`)
     if (response.ok) {
         const proofreadings = await response.json();
         dispatch(setProofreading(proofreadings));
@@ -79,10 +109,10 @@ export const getProofreading = () => async (dispatch) => {
 }
 
 export const getCopywriting = () => async (dispatch) => {
-    const response = await fetch(`/api/copy`)
+    const response = await fetch(`/api/copywritings`)
     if (response.ok) {
         const copy = await response.json();
-        dispatch(setTranslation(copy));
+        dispatch(setCopywriting(copy));
     } else {
         return [`An error occurred. Please try again.`]
     }
@@ -116,7 +146,7 @@ export const addProofreading = (proofreading) => async (dispatch) => {
     })
     if (response.ok) {
         const newProofreading = await response.json();
-        dispatch(createTranslation(newProofreading));
+        dispatch(createProofreading(newProofreading));
         // return newProofreading;
     }
     else {
@@ -134,7 +164,7 @@ export const addCopywriting = (copywriting) => async (dispatch) => {
     })
     if (response.ok) {
         const newCopywriting = await response.json();
-        dispatch(createTranslation(newCopywriting));
+        dispatch(createCopywriting(newCopywriting));
         // return newCopywriting;
     }
     else {
@@ -142,7 +172,93 @@ export const addCopywriting = (copywriting) => async (dispatch) => {
     }
 }
 
-const initialState = {}
+export const editTranslation = (payload) => async (dispatch) => {
+    const translationId = payload.id;
+    const translation = payload;
+    const response = await fetch(`/api/translations/${translationId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateTranslation(data))
+        if (data.errors) {
+            return;
+        }
+    }
+}
+export const editProofreading = (payload) => async (dispatch) => {
+    const proofreadingId = payload.id;
+    const proofreading = payload;
+    const response = await fetch(`/api/proofreadings/${proofreadingId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateProofreading(data))
+        if (data.errors) {
+            return;
+        }
+    }
+}
+export const editCopywriting = (payload) => async (dispatch) => {
+    const copywritingId = payload.id;
+    const copywriting = payload;
+    const response = await fetch(`/api/copywritings/${copywritingId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateCopywriting(data))
+        if (data.errors) {
+            return;
+        }
+    }
+}
+
+export const deleteTranslation = (translation) => async (dispatch) => {
+    const response = await fetch(`/api/translations/${translation.id}`, {
+        method: 'DELETE'
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateCopywriting(data))
+        if (data.errors) {
+            return;
+        }
+    }
+}
+export const deleteProofreading = (proofreading) => async (dispatch) => {
+    const response = await fetch(`/api/proofreadings/${proofreading.id}`, {
+        method: 'DELETE'
+    })
+    if (response.ok) {
+        dispatch(removeProofreading(proofreading.id));
+    }
+}
+export const deleteCopywriting = (copywriting) => async (dispatch) => {
+    const response = await fetch(`/api/copywritings/${copywriting.id}`, {
+        method: 'DELETE'
+    })
+    if (response.ok) {
+        dispatch(removeCopywriting(copywriting.id));
+    }
+}
+
+
+const initialState = {};
+let index;
 
 export default function reducer(state=initialState, action) {
     let newState;
@@ -182,6 +298,39 @@ export default function reducer(state=initialState, action) {
         case ADD_COPYWRITING:
             newState = { ...state };
             newState[action.payload.id] = action.payload;
+            return newState;
+        case EDIT_TRANSLATION:
+            newState = {...state};
+            newState.translation = [...state.translation];
+            // newState[action.payload.id] = action.payload;
+            index = newState.translation.findIndex((translation) => translation.id === action.payload.id)
+            newState.translation.splice(index, 1, action.payload)
+            return newState;
+        case EDIT_PROOFREADING:
+            newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        case EDIT_COPYWRITING:
+            newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        case DELETE_TRANSLATION:
+            newState = { ...state };
+            newState.translation = [...state.translation];
+            index = newState.translation.findIndex((translation) => translation.id === action.payload.id)
+            newState.translation.splice(index, 1)
+            return newState;
+        case DELETE_PROOFREADING:
+            newState = { ...state };
+            newState.proofreading = [...state.proofreading];
+            index = newState.proofreading.findIndex((proofreading) => proofreading.id === action.payload.id)
+            newState.proofreading.splice(index, 1)
+            return newState;
+        case DELETE_COPYWRITING:
+            newState = { ...state };
+            newState.copywriting = [...state.copywriting];
+            index = newState.copywriting.findIndex((copywriting)=>copywriting.id === action.payload.id)
+            newState.copywriting.splice(index, 1)
             return newState;
         default: 
             return state;
