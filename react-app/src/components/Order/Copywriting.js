@@ -6,7 +6,7 @@ import styles from '../../css-modules/Order.module.css';
 import { addCopywriting } from '../../store/orders';
 import { editCopywriting } from '../../store/orders';
 
-const Copywriting = ({copywriting}) => {
+const Copywriting = ({copywriting, onSubmit}) => {
     const ranges = ['', '50-100', '100-500', '500-1000', '1000-5000'];
     const languages = ['', 'German', 'English', 'Spanish'];
     const fields = ['', 'Science', 'Finance', 'Other'];
@@ -16,11 +16,18 @@ const Copywriting = ({copywriting}) => {
     const [links, setLinks] = useState('');
     const [field, setField] = useState('Other');
     const [word_count, setWord_count] = useState(ranges[0]);
-    const [language, setlanguage] = useState(languages[0]);
+    const [language, setLanguage] = useState(languages[0]);
     const [total, setTotal] = useState(0);
     // const [target_language, setTarget_language] = useState('English');
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const editOrder = async (e) => {
+        e.preventDefault()
+        await dispatch(editCopywriting({ id: copywriting.id, order_id: copywriting.order_id, description, completion_status: copywriting.completion_status, created_at: copywriting.created_at, field, word_count, language, key_words, links }));
+        await onSubmit();
+        history.push('/profile')
+    }
     
     useEffect(() => {
         if (copywriting) {
@@ -29,10 +36,10 @@ const Copywriting = ({copywriting}) => {
             setLinks(copywriting.links)
             setField(copywriting.field)
             setWord_count(copywriting.word_count)
-            language(copywriting.language)
+            setLanguage(copywriting.language)
             setTotal(copywriting.total)
         }
-    }, [copywriting])
+    }, [])
 
     const updateDescription = (e) => {
         setDescription(e.target.value)
@@ -62,11 +69,11 @@ const Copywriting = ({copywriting}) => {
         }
     }
     const updateLanguage = (e) => {
-        setlanguage(e.target.value)
+        setLanguage(e.target.value)
     }
 
 
-    const createTranslation = async (e) => {
+    const createCopywriting = async (e) => {
         e.preventDefault();
         const data = await dispatch(addCopywriting({
             description, 
@@ -85,7 +92,7 @@ const Copywriting = ({copywriting}) => {
     }
 
     return (
-        <form onSubmit={createTranslation}>
+        <form onSubmit={copywriting ? (e)=>editOrder(e) : createCopywriting}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>

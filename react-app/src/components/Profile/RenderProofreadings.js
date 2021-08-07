@@ -5,21 +5,13 @@ import Proofreading from '../Order/Proofreading';
 import { NavLink } from 'react-router-dom';
 
 const RenderProofreadings = ({ proofreading, editOrder, deleteOrder }) => {
-    const makeChanges = (proofreading) => {
-        editOrder(proofreading)
-    }
     const [edit, setEdit] = useState(false);
     if (edit === true) {
         // setEdit(!edit)
         return (
-            <div className={styles.orderForm}>
-                <Proofreading
-                    // className={styles.orderForm}
-                    translaton={proofreading}
-                    onSubmit={() => {
-                        setEdit(!edit)
-                        makeChanges(proofreading)}} />
-            </div>
+            <Proofreading
+                proofreading={proofreading.proofreading}
+                onSubmit={() => setEdit(!edit)} />
         )
     } else {
         return (

@@ -4,17 +4,9 @@ import Translation from '../Order/'
 // import { NavLink } from 'react-router-dom';
 
 const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
-    // const makeChanges = (translation) => {
-    //     editOrder(translation)
-    // }
-    // useEffect(()=> {
-    //     editOrder(translation)
-    // }, [])
-    console.log(translation)
     const [edit, setEdit] = useState(false);
     if (edit === true) {
         // setEdit(!edit)
-        console.log(translation, 'line 15')
         return (
             <Translation 
                 translation={translation.translation}

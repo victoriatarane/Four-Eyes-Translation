@@ -3,19 +3,13 @@ import {useState} from 'react';
 import Copywriting from '../Order/Copywriting';
 
 const RenderCopywritings = ({ copywriting, editOrder, deleteOrder }) => {
-    const makeChanges = (copywriting) => {
-        editOrder(copywriting)
-    }
     const [edit, setEdit] = useState(false);
     if (edit === true) {
         // setEdit(!edit)
-        return (
-            <div className={styles.orderForm}>
-                <Copywriting
-                    className={styles.orderForm}
-                    translaton={copywriting}
-                    onSubmit={() => setEdit(!edit)} />
-            </div>
+        return ( 
+            <Copywriting
+                copywriting={copywriting.copywriting}
+                onSubmit={() => setEdit(!edit)} />
         )
     } else {
         return (

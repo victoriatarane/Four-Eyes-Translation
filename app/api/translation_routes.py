@@ -26,6 +26,8 @@ def get_translation(translation_id):
     return translation.to_dict()
 
 # Get translations by userID
+
+
 @translation_routes.route('/', methods=['GET'])
 # @login_required
 # @translation_routes.route('/all/:user_id', methods=['GET'])
@@ -38,10 +40,12 @@ def get_all_translations():
     return {"translations": [order.translations.to_dict() for order in orders if order.translations]}
 
 #Crate a new translation
+
+
 @translation_routes.route('/create', methods=['POST'])
 @login_required
 def create_translation():
-    # if request.method == 'POST':   
+    # if request.method == 'POST':
     if "file" not in request.files:
         return {"errors": "document required"}, 400
 

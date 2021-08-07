@@ -244,7 +244,11 @@ export const deleteProofreading = (proofreading) => async (dispatch) => {
         method: 'DELETE'
     })
     if (response.ok) {
-        dispatch(removeProofreading(proofreading.id));
+        const data = await response.json();
+        dispatch(removeProofreading(data));
+        if (data.errors) {
+            return;
+        }
     }
 }
 export const deleteCopywriting = (copywriting) => async (dispatch) => {
@@ -252,7 +256,11 @@ export const deleteCopywriting = (copywriting) => async (dispatch) => {
         method: 'DELETE'
     })
     if (response.ok) {
-        dispatch(removeCopywriting(copywriting.id));
+        const data = await response.json();
+        dispatch(removeCopywriting(data));
+        if (data.errors) {
+            return;
+        }
     }
 }
 
@@ -310,9 +318,17 @@ export default function reducer(state=initialState, action) {
             return newState;
         case EDIT_PROOFREADING:
             newState = { ...state };
+            newState.proofreading = [...state.proofreading];
+            index = newState.proofreading.findIndex((proofreading) => proofreading.id === action.payload.id)
+            newState.proofreading.splice(index, 1)
+            newState = { ...state };
             newState[action.payload.id] = action.payload;
             return newState;
         case EDIT_COPYWRITING:
+            newState = { ...state };
+            newState.copywriting = [...state.copywriting];
+            index = newState.copywriting.findIndex((copywriting) => copywriting.id === action.payload.id)
+            newState.copywriting.splice(index, 1)
             newState = { ...state };
             newState[action.payload.id] = action.payload;
             return newState;

@@ -7,7 +7,7 @@ import { addProofreading } from '../../store/orders';
 // import UploadFile from './Upload';
 import { editProofreading } from '../../store/orders';
 
-const Proofreading = ({proofreading}) => {
+const Proofreading = ({proofreading, onSubmit}) => {
     const [errors, setErrors] = useState([]);
     const [document_url, setDocument_url] = useState('hhhh');
     const [file, setFile] = useState(null);
@@ -16,12 +16,13 @@ const Proofreading = ({proofreading}) => {
     const [language, setLanguage] = useState('English');
     const [total, setTotal] = useState(0);
     const [fileLoading, setFileLoading] = useState(false);
-    // const [targetLanguage, setTargetLanguage] = useState('English');
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const editOrder = async () => {
-        await dispatch(editProofreading({ id: proofreading.id, field, word_count, language }));
+    const editOrder = async (e) => {
+        e.preventDefault()
+        await dispatch(editProofreading({ id: proofreading.id, order_id: proofreading.order_id, document_url: proofreading.document_url, completion_status: proofreading.completion_status, created_at: proofreading.created_at, field, word_count, language }));
+        await onSubmit();
         history.push('/profile')
     }
 
@@ -31,7 +32,6 @@ const Proofreading = ({proofreading}) => {
             setField(proofreading.field)
             setWord_count(proofreading.word_count)
             setLanguage(proofreading.language)
-            // setTotal(proofreading.total)
         }
     }, [])
 
@@ -45,9 +45,6 @@ const Proofreading = ({proofreading}) => {
         setWord_count(e.target.value)
         setTotal(e.target.value * 0.12)
     }
-    // const updateSourceLanguage = (e) => {
-    //     setSourceLanguage(e.target.value)
-    // }
     const updateLanguage = (e) => {
         setLanguage(e.target.value)
     }
@@ -80,7 +77,7 @@ const Proofreading = ({proofreading}) => {
     console.log(field, word_count, language)
     console.log(proofreading, 'proofreading')
     return (
-        <form onSubmit={createProofreading}>
+        <form onSubmit={proofreading ? (e)=>editOrder(e) : createProofreading}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>

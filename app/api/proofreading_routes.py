@@ -102,6 +102,8 @@ def update_proofreading(proofreading_id):
 @proofreading_routes.route('/<int:proofreading_id>', methods=['DELETE'])
 def delete_proofreading(proofreading_id):
     proofreading = Proofreading.query.get(proofreading_id)
+    order = Order.query.get(proofreading.order_id)
     db.session.delete(proofreading)
+    db.session.delete(order)
     db.session.commit()
     return {'message': 'proofreading removed'}

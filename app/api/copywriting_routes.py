@@ -86,6 +86,8 @@ def update_copywriting(copywriting_id):
 @copywriting_routes.route('/<int:copywriting_id>', methods=['DELETE'])
 def delete_copywriting(copywriting_id):
     copywriting = Copywriting.query.get(copywriting_id)
+    order = Order.query.get(copywriting.order_id)
     db.session.delete(copywriting)
+    db.session.delete(order)
     db.session.commit()
     return {'message': 'copywriting removed'}
