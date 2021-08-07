@@ -9,7 +9,7 @@ import { editTranslation } from '../../store/orders';
 
 const Translation = ({translation, onSubmit}) => {
     const [errors, setErrors] = useState([]);
-    const [document_url, setDocumentUrl] = useState('hhhh');
+    const [document_url, setDocumentUrl] = useState('');
     const [field, setField] = useState('Other')
     const [word_count, setWord_count] = useState(0);
     const [source_language, setSource_language] = useState('English');
@@ -81,7 +81,7 @@ const Translation = ({translation, onSubmit}) => {
         }
     }
     return (
-        <form onSubmit={translation ? (e)=>editOrder(e) : createTranslation}>
+        <form className={styles.orderTranslation} onSubmit={translation ? (e)=>editOrder(e) : createTranslation}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
@@ -89,7 +89,7 @@ const Translation = ({translation, onSubmit}) => {
             </div>
             <div>
                 <label>Select topic:</label>
-                <select onChange={updateField} value={field}>
+                <select className={styles.selectInput} onChange={updateField} value={field}>
                     {fields.map(field =>
                         <option key={field} value={field}>{field}</option>)}
                 </select>
@@ -107,14 +107,14 @@ const Translation = ({translation, onSubmit}) => {
             </div>
             <div>
                 <label>Select source language:</label>
-                <select onChange={updateSource_language} value={source_language}>
+                <select className={styles.selectInput}  onChange={updateSource_language} value={source_language}>
                     {languages.map(language =>
                         <option key={language} value={source_language}>{language}</option>)}
                 </select>
             </div>
             <div>
                 <label>Select target language:</label>
-                <select onChange={updateTarget_language} value={target_language}>
+                <select className={styles.selectInput}  onChange={updateTarget_language} value={target_language}>
                     {languages.map(language =>
                         <option key={language} value={target_language}>{language}</option>)}
                 </select>

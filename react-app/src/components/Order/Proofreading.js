@@ -9,7 +9,7 @@ import { editProofreading } from '../../store/orders';
 
 const Proofreading = ({proofreading, onSubmit}) => {
     const [errors, setErrors] = useState([]);
-    const [document_url, setDocument_url] = useState('hhhh');
+    const [document_url, setDocument_url] = useState('');
     const [file, setFile] = useState(null);
     const [field, setField] = useState('Other')
     const [word_count, setWord_count] = useState(0);
@@ -77,7 +77,7 @@ const Proofreading = ({proofreading, onSubmit}) => {
     console.log(field, word_count, language)
     console.log(proofreading, 'proofreading')
     return (
-        <form onSubmit={proofreading ? (e)=>editOrder(e) : createProofreading}>
+        <form className={styles.orderTranslation} onSubmit={proofreading ? (e)=>editOrder(e) : createProofreading}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
@@ -85,7 +85,7 @@ const Proofreading = ({proofreading, onSubmit}) => {
             </div>
             <div>
                 <label>Select topic:</label>
-                <select onChange={updateField}>
+                <select className={styles.selectInput} onChange={updateField}>
                     {fields.map(field =>
                         <option key={field} value={field}>{field}</option>)}
                 </select>
@@ -108,7 +108,7 @@ const Proofreading = ({proofreading, onSubmit}) => {
             </div> */}
             <div>
                 <label>Select language:</label>
-                <select onChange={updateLanguage}>
+                <select className={styles.selectInput} onChange={updateLanguage}>
                     {languages.map(language =>
                         <option key={language} value={language}>{language}</option>)}
                 </select>

@@ -92,7 +92,7 @@ const Copywriting = ({copywriting, onSubmit}) => {
     }
 
     return (
-        <form onSubmit={copywriting ? (e)=>editOrder(e) : createCopywriting}>
+        <form className={styles.orderTranslation} onSubmit={copywriting ? (e)=>editOrder(e) : createCopywriting}>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
@@ -100,7 +100,7 @@ const Copywriting = ({copywriting, onSubmit}) => {
             </div>
             <div>
                 <label>Select topic:</label>
-                <select onChange={updateField}>
+                <select className={styles.selectInput} onChange={updateField}>
                     {fields.map(field =>
                         <option key={field} value={field}>{field}</option>)}
                 </select>
@@ -134,7 +134,7 @@ const Copywriting = ({copywriting, onSubmit}) => {
             </div>
             <div>
                 <label>Select optimal word count range:</label>
-                <select onChange={updateWord_count}>
+                <select className={styles.selectInput} onChange={updateWord_count}>
                     {ranges.map(range =>
                         <option key={range} value={range}>{range}</option>)}
                 </select>

@@ -64,7 +64,7 @@ const Order = ({translation, onSubmit}) => {
                     Copywriting
                 </button><br/>
             </div>
-            <div>
+            <div className={styles.serviceForm}>
                 {service === 'Translation' ? <Translation translation={translation} onSubmit={onSubmit}/> : null}
                 {service === 'Proofreading' ? <Proofreading /> : null}
                 {service === 'Copywriting' ? <Copywriting /> : null}

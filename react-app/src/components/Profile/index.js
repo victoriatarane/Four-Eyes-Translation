@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {getTranslation, getCopywriting, getProofreading} from '../../store/orders';
+import { getTranslation, getCopywriting, getProofreading } from '../../store/orders';
 import { getOrders } from '../../store/orders';
 import styles from '../../css-modules/Profile.module.css';
-import { editTranslation, editProofreading, editCopywriting} from '../../store/orders';
+import { editTranslation, editProofreading, editCopywriting } from '../../store/orders';
 import { deleteTranslation, deleteProofreading, deleteCopywriting } from '../../store/orders';
 import RenderTranslations from './RenderTranslations';
 import RenderProofreadings from './RenderProofreadings';
@@ -21,18 +21,18 @@ function User() {
   useSelector((state) => console.log(state));
   // useEffect(()=> {
   // }, [state])
-  const translations = useSelector((state) => state.session.user.orders.filter(order=>order.translation));
+  const translations = useSelector((state) => state.session.user.orders.filter(order => order.translation));
   const proofreadings = useSelector((state) => state.session.user.orders.filter(order => order.proofreading));
-  const copywritings = useSelector((state) => state.session.user.orders.filter(order=>order.copywriting));
-  
+  const copywritings = useSelector((state) => state.session.user.orders.filter(order => order.copywriting));
+
 
 
   const editOrder = async (order) => {
-    if (order.translation){
+    if (order.translation) {
       await dispatch(editTranslation(order.translation))
-    } else if (order.copywriting){
+    } else if (order.copywriting) {
       await dispatch(editCopywriting(order.copywriting))
-    } else if(order.proofreading){
+    } else if (order.proofreading) {
       await dispatch(editProofreading(order.proofreading))
     }
     history.push('/profile')
@@ -43,24 +43,24 @@ function User() {
       await dispatch(deleteTranslation(order.translation))
     } else if (order.copywriting) {
       await dispatch(deleteCopywriting(order.copywriting))
-    } else if (order.proofreading){
+    } else if (order.proofreading) {
       await dispatch(deleteProofreading(order.proofreading))
     }
     history.push('/profile')
   }
 
-  
+
   return (
     <div className={styles.profileLayout}>
       <label>My Orders:</label>
       <p>Translations</p>
       {translations.length ? (translations.map(translation =>
-        <RenderTranslations 
+        <RenderTranslations
           key={translation.id}
           translation={translation}
           editOrder={editOrder}
-          deleteOrder={deleteOrder}/>
-  )) : null}
+          deleteOrder={deleteOrder} />
+      )) : null}
 
       <p>Proofreading</p>
       {proofreadings.length ? (proofreadings.map(proofreading =>
