@@ -21,8 +21,8 @@ const RenderProofreadings = ({ proofreading, editOrder, deleteOrder }) => {
                 <li>Word count: {proofreading.proofreading.word_count}</li>
                 <li>Language: {proofreading.proofreading.language}</li>
                 <li>Date created: {proofreading.proofreading.created_at}</li>
-                <button className={styles.editButton} onClick={() => setEdit(!edit)}>Edit<i className="fa-solid fa-pen" /></button>
-                <button className={styles.deleteButton} onClick={() => deleteOrder(proofreading)}>Delete<i className="fas fa-trash-alt" /></button>
+                <button className={styles.editButton} onClick={() => setEdit(!edit)}>📝</button>
+                <button className={styles.deleteButton} onClick={() => deleteOrder(proofreading)}>🗑</button>
             </ul>
 
         )

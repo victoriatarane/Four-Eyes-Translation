@@ -3,7 +3,11 @@
     position: absolute;
     z-index: -2;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.serviceDiv{
+    padding: 2%;
 }
 
 .orderRender {
@@ -32,7 +36,9 @@
     height: 50px;
     width: 50px;
     font-size: 20px;
-    background-color: brown;
+    background: transparent!important;
+    border: none;
+    /* background-color: brown; */
     /* font: black; */
 }
 
@@ -41,10 +47,27 @@
     justify-content: center;
     box-sizing: border-box;
     height: 50px;
-    width: 80px;
+    width: 50px;
     font-size: 20px;
-    background-color: brown;
+    background: transparent!important;
+    border: none;
+    /* background-color: brown; */
     /* font-color: black; */
+}
+.serviceDisplay {
+    top: 20px;
+    font-family: "proxima-nova", sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+.serviceLabel {
+    top: 20px;
+    font-family: "proxima-nova", sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: 2px;
 }
 
 .orderForm {

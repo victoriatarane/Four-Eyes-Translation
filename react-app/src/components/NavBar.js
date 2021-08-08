@@ -3,12 +3,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+
 import styles from '../css-modules/NavBar.module.css';
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user);
   return (
-    <nav>
+    <nav className={styles.navBar1}>
       <ul>
         <li>
           <NavLink to='/' exact={true} activeClassName='active'>

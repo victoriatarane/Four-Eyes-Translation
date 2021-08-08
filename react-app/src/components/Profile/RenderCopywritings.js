@@ -21,8 +21,8 @@ const RenderCopywritings = ({ copywriting, editOrder, deleteOrder }) => {
                 <li>Word count: {copywriting.copywriting.word_count}</li>
                 <li>Language: {copywriting.copywriting.language}</li>
                 <li>Date created: {copywriting.copywriting.created_at}</li>
-                <button className={styles.editButton} onClick={() => setEdit(!edit)}>Edit<i className="fa-solid fa-pen" /></button>
-                <button className={styles.deleteButton} onClick={() => deleteOrder(copywriting)}>Delete<i className="fas fa-trash-alt" /></button>
+                <button className={styles.editButton} onClick={() => setEdit(!edit)}>📝</button>
+                <button className={styles.deleteButton} onClick={() => deleteOrder(copywriting)}>🗑</button>
             </ul>
         )
     }

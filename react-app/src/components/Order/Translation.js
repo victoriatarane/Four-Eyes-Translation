@@ -52,7 +52,6 @@ const Translation = ({translation, onSubmit}) => {
     const updateTarget_language = (e) => {
         setTarget_language(e.target.value)
     }
-
     const updateFile = (e) => {
         const file = e.target.files[0];
         setFile(file);

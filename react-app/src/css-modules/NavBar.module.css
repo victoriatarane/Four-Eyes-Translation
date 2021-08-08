@@ -1,6 +1,6 @@
 
 
-nav {
+.navBar1 {
 
   /* background-color: #693935; */
   background-image: url("../components/assets/main_bg_top_2.png");
@@ -12,6 +12,7 @@ nav {
   margin-left: 0px;
   /* z-index: 5; */
 }
+
 
 li {
   margin-left: 10px;

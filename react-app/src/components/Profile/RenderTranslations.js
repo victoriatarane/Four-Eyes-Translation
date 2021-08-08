@@ -23,8 +23,8 @@ const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
                 <li>Source language: {translation.translation.source_language}</li>
                 <li>Target language: {translation.translation.target_language}</li>
                 <li>Date created: {translation.translation.created_at}</li>
-                <button className={styles.editButton} onClick={()=>setEdit(!edit)}>Edit<i className="fa-solid fa-pen" /></button>
-                <button className={styles.deleteButton} onClick={() => deleteOrder(translation)}>Delete<i className="fas fa-trash-alt" /></button>
+                <button className={styles.editButton} onClick={()=>setEdit(!edit)}>📝</button>
+                <button className={styles.deleteButton} onClick={() => deleteOrder(translation)}>🗑</button>
             </ul>
         )
     }

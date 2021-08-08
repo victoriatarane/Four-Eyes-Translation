@@ -1,0 +1,27 @@
+.navBar2 {
+    font-family: Dosis, Helvetica, sans-serif;
+    background-color: #693935;
+    /* text-align: center; */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* z-index: 10; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 1.1em;
+    font-weight: 600;
+    max-height: 70px;
+}
+
+/* div {
+    display: flex;
+    flex-direction: row;
+} */
+
+img {
+    max-height: 40px;
+    max-width: 40px;
+    margin: 0;
+    align-self: center;
+}

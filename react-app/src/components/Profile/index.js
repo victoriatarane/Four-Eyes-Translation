@@ -51,33 +51,41 @@ function User() {
 
 
   return (
-    <div className={styles.profileLayout}>
-      <label>My Orders:</label>
-      <p>Translations</p>
-      {translations.length ? (translations.map(translation =>
-        <RenderTranslations
-          key={translation.id}
-          translation={translation}
-          editOrder={editOrder}
-          deleteOrder={deleteOrder} />
-      )) : null}
-
-      <p>Proofreading</p>
-      {proofreadings.length ? (proofreadings.map(proofreading =>
-        <RenderProofreadings
-          key={proofreading.id}
-          proofreading={proofreading}
-          editOrder={editOrder}
-          deleteOrder={deleteOrder} />
-      )) : null}
-      <p>Copy</p>
-      {copywritings.length ? (copywritings.map(copywriting =>
-        <RenderCopywriting
-          key={copywriting.id}
-          copywriting={copywriting}
-          editOrder={editOrder}
-          deleteOrder={deleteOrder} />
-      )) : null}
+    <div>
+      <label className={styles.serviceDisplay}>My Orders:</label>
+      {!translations.length && !proofreadings.length && !copywritings.length ? <p>None</p> : null}
+        <div className={styles.profileLayout}>
+          <div className={styles.serviceDiv}>
+            {translations.length ? <p className={styles.serviceLabel}>Translations</p> : null}
+            {translations.length ? (translations.map(translation =>
+              <RenderTranslations
+                key={translation.id}
+                translation={translation}
+                editOrder={editOrder}
+                deleteOrder={deleteOrder} />
+            )) : null}
+          </div>
+          <div className={styles.serviceDiv}>
+            {proofreadings.length ? <p className={styles.serviceLabel}>Proofreadings</p> : null}
+            {proofreadings.length ? (proofreadings.map(proofreading =>
+              <RenderProofreadings
+                key={proofreading.id}
+                proofreading={proofreading}
+                editOrder={editOrder}
+                deleteOrder={deleteOrder} />
+            )) : null}
+          </div>
+          <div className={styles.serviceDiv}>
+            {copywritings.length ? <p className={styles.serviceLabel}>Copywriting</p> : null}
+            {copywritings.length ? (copywritings.map(copywriting =>
+              <RenderCopywriting
+                key={copywriting.id}
+                copywriting={copywriting}
+                editOrder={editOrder}
+                deleteOrder={deleteOrder} />
+            )) : null}
+          </div>
+        </div>
     </div>
   );
 }
