@@ -14,7 +14,7 @@ const Copywriting = ({copywriting, onSubmit}) => {
     const [description, setDescription] = useState('');
     const [key_words, setKey_words] = useState('');
     const [links, setLinks] = useState('');
-    const [field, setField] = useState('Other');
+    const [field, setField] = useState(fields[0]);
     const [word_count, setWord_count] = useState(ranges[0]);
     const [language, setLanguage] = useState(languages[0]);
     const [total, setTotal] = useState(0);
@@ -39,7 +39,7 @@ const Copywriting = ({copywriting, onSubmit}) => {
             setLanguage(copywriting.language)
             setTotal(copywriting.total)
         }
-    }, [])
+    }, []);
 
     const updateDescription = (e) => {
         setDescription(e.target.value)
@@ -141,14 +141,14 @@ const Copywriting = ({copywriting, onSubmit}) => {
             </div>
             <div>
                 <label>Select language:</label>
-                <select onChange={updateLanguage}>
+                <select className={styles.selectInput} onChange={updateLanguage}>
                     {languages.map(language =>
                         <option key={language} value={language}>{language}</option>)}
                 </select>
             </div>
             <div>
-                <label>Your total:</label>
-                <p>${Number.parseFloat(total).toFixed(2)}</p>
+                <label className={styles.price}>Your total:</label>
+                <p className={styles.price}>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
             <button className={styles.submitButton} type='submit'>Continue</button>
         </form>

@@ -8,12 +8,14 @@ import { addProofreading } from '../../store/orders';
 import { editProofreading } from '../../store/orders';
 
 const Proofreading = ({proofreading, onSubmit}) => {
+    const languages = ['', 'German', 'English', 'Spanish'];
+    const fields = ['', 'Science', 'Finance', 'Other'];
     const [errors, setErrors] = useState([]);
     const [document_url, setDocument_url] = useState('');
     const [file, setFile] = useState(null);
-    const [field, setField] = useState('Other')
+    const [field, setField] = useState(fields[0])
     const [word_count, setWord_count] = useState(0);
-    const [language, setLanguage] = useState('English');
+    const [language, setLanguage] = useState(languages[0]);
     const [total, setTotal] = useState(0);
     const [fileLoading, setFileLoading] = useState(false);
     const dispatch = useDispatch();
@@ -34,9 +36,6 @@ const Proofreading = ({proofreading, onSubmit}) => {
             setLanguage(proofreading.language)
         }
     }, [])
-
-    const languages = ['', 'German', 'English', 'Spanish'];
-    const fields = ['', 'Science', 'Finance', 'Other'];
 
     const updateField = (e) => {
         setField(e.target.value)
@@ -123,8 +122,8 @@ const Proofreading = ({proofreading, onSubmit}) => {
                 {(fileLoading) && <p>Loading...</p>}
             </div>
             <div>
-                <label>Your total:</label>
-                <p>${Number.parseFloat(total).toFixed(2)}</p>
+                <label className={styles.price}>Your total:</label>
+                <p className={styles.price}>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
             <button className={styles.submitButton} type='submit'>Continue</button>
         </form>

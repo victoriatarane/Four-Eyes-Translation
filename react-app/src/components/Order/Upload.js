@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
+import styles from "../../css-modules/Order.module.css";
 
 const UploadFile = () => {
     const history = useHistory(); // so that we can redirect after the image upload is successful

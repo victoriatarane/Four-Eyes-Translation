@@ -8,12 +8,14 @@ import { addTranslation } from '../../store/orders';
 import { editTranslation } from '../../store/orders';
 
 const Translation = ({translation, onSubmit}) => {
+    const languages = ['', 'German', 'English', 'Spanish'];
+    const fields = ['', 'Science', 'Finance', 'Other'];
     const [errors, setErrors] = useState([]);
     const [document_url, setDocumentUrl] = useState('');
-    const [field, setField] = useState('Other')
+    const [field, setField] = useState(fields[0])
     const [word_count, setWord_count] = useState(0);
-    const [source_language, setSource_language] = useState('English');
-    const [target_language, setTarget_language] = useState('English');
+    const [source_language, setSource_language] = useState(languages[0]);
+    const [target_language, setTarget_language] = useState(languages[0]);
     const [total, setTotal] = useState(0);
     const [file, setFile] = useState(null);
     const [fileLoading, setFileLoading] = useState(false);
@@ -35,9 +37,6 @@ const Translation = ({translation, onSubmit}) => {
             setTarget_language(translation.target_language)
         }
     }, [])
-
-    const languages = ['', 'German', 'English', 'Spanish'];
-    const fields = ['', 'Science', 'Finance', 'Other'];
 
     const updateField = (e) => {
         setField(e.target.value)
@@ -108,14 +107,14 @@ const Translation = ({translation, onSubmit}) => {
                 <label>Select source language:</label>
                 <select className={styles.selectInput}  onChange={updateSource_language} value={source_language}>
                     {languages.map(language =>
-                        <option key={language} value={source_language}>{language}</option>)}
+                        <option key={language} value={language} defaultValue={source_language}>{language}</option>)}
                 </select>
             </div>
             <div>
                 <label>Select target language:</label>
                 <select className={styles.selectInput}  onChange={updateTarget_language} value={target_language}>
                     {languages.map(language =>
-                        <option key={language} value={target_language}>{language}</option>)}
+                        <option key={language} value={language} defaultValue={target_language}>{language}</option>)}
                 </select>
             </div>
             <div>
@@ -128,8 +127,8 @@ const Translation = ({translation, onSubmit}) => {
                 {(fileLoading) && <p>Loading...</p>}
             </div>
             <div>
-                <label>Your total:</label>
-                <p>${Number.parseFloat(total).toFixed(2)}</p>
+                <label className={styles.price}>Your total:</label>
+                <p className={styles.price}>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
             <button className={styles.submitButton} type='submit'>Submit</button>
         </form>
