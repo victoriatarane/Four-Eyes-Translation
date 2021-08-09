@@ -23,7 +23,7 @@ const NavBar = () => {
           <LogoutButton />
         </li>
         ) : (
-        <li className= { styles.loginNavBar }>
+        <li className={styles.loginNavBar}>
           <NavLink to='/login' exact={true} activeClassName='active'>
             Login
           </NavLink>
