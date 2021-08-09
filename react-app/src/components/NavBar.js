@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import DemoUser from './DemoUser';
+import logoName from './assets/logoName.png';
 
 import styles from '../css-modules/NavBar.module.css';
 
@@ -53,6 +54,9 @@ const NavBar = () => {
           </NavLink>
         </li>
         ) : null}
+        <li className={styles.loginNavBar}>
+          <img className={styles.logoName} src={logoName} alt='Four Eyes Translation'></img>
+        </li>
       </ul>
     </nav>
   );

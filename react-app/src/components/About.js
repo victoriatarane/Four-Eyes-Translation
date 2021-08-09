@@ -12,7 +12,7 @@ const NavBar2 = () => {
         <nav className={styles.navBar2}>
             <ul>
                 <li>
-                    <p className={styles.myName}>Victoria Tarane</p>
+                    <p className={styles.myName}>Developed by Victoria Tarane</p>
                 </li>
                 <li>
                     <img className={styles.aboutImg} src={linkedin} alt='LinkedIn' onClick={() => window.open("https://www.linkedin.com/in/victoria-tarane-54a86b5b/")} />
