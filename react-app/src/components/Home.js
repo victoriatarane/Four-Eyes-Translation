@@ -5,11 +5,11 @@ import styles from '../css-modules/SplashPage.module.css'
 import img_url from './assets/logo_03.jpeg';
 
 function SplashPage() {
-    const user = useSelector(state => state.session.user);
+    // const user = useSelector(state => state.session.user);
 
-    if (user) {
-        return <Redirect to={`/users/${user.id}`} />
-    };
+    // if (user) {
+    //     return <Redirect to={`/users/${user.id}`} />
+    // };
 
     return (
         <div className={styles.splashDiv}>

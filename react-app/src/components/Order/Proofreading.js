@@ -56,6 +56,15 @@ const Proofreading = ({proofreading, onSubmit}) => {
     }
 
     const createProofreading = async (e) => {
+        if (!field.length) {
+            setErrors(["Please let us know what the proofreading will be about."]);
+        }
+        if (!word_count.length) {
+            setErrors(["Please indicate the length of your source document."]);
+        }
+        if (!language.length) {
+            setErrors(["Please indicate the source language of the proofreading."]);
+        }
         e.preventDefault();
         const formData = new FormData();
         formData.append("file", file);
@@ -67,7 +76,8 @@ const Proofreading = ({proofreading, onSubmit}) => {
         const data = await dispatch(addProofreading(formData))
         console.log(data, "#####")
         if (data) {
-            setErrors(data)
+            // setErrors(data)
+            console.log(errors)
         } else {
             setFileLoading(false);
             history.push('/profile')
@@ -84,7 +94,7 @@ const Proofreading = ({proofreading, onSubmit}) => {
             </div>
             <div>
                 <label>Select topic:</label>
-                <select className={styles.selectInput} onChange={updateField}>
+                <select className={styles.selectInput} value={field} onChange={updateField}>
                     {fields.map(field =>
                         <option key={field} value={field}>{field}</option>)}
                 </select>
@@ -107,7 +117,7 @@ const Proofreading = ({proofreading, onSubmit}) => {
             </div> */}
             <div>
                 <label>Select language:</label>
-                <select className={styles.selectInput} onChange={updateLanguage}>
+                <select className={styles.selectInput} value={language} onChange={updateLanguage}>
                     {languages.map(language =>
                         <option key={language} value={language}>{language}</option>)}
                 </select>

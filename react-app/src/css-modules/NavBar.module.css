@@ -10,14 +10,52 @@
   top: 0px; 
   width: 100%;
   margin-left: 0px;
-  /* z-index: 5; */
+  z-index: 5;
 }
+/* .demoFormContainer {
 
+} */
+.loginNavBar {
+    font-family: "proxima-nova", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    text-transform: uppercase!important;
+    letter-spacing: 2px;
+    color: #fff;
+}
+.demoSign {
+  color:saddlebrown;
+  margin-left: 30px;
+  border: 3px solid saddlebrown;
+  border-radius:50px;
+  letter-spacing: 2px;
+  background: transparent;
+  font-family: "proxima-nova", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  text-transform: uppercase!important;
+  letter-spacing: 2px;
 
+}
 li {
   margin-left: 10px;
   color: white;
   display: inline-block;
+}
+a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    /* background: #7a4e13; */
+    color:saddlebrown;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 1!important;
 }
 
 .profilebutton {

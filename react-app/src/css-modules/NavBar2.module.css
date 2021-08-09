@@ -1,27 +1,40 @@
 .navBar2 {
+    height: 70px;
+    box-sizing: border-box;
     font-family: Dosis, Helvetica, sans-serif;
     background-color: #693935;
-    /* text-align: center; */
+    text-align: center;
     position: fixed;
     bottom: 0;
     width: 100%;
+    /* position: fixed; */
     /* z-index: 10; */
+    opacity: 0.9;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    font-size: 1.1em;
-    font-weight: 600;
-    max-height: 70px;
+
 }
 
+.myName {
+    /* box-sizing: border-box; */
+    font-family: "proxima-nova", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    text-transform: uppercase!important;
+    letter-spacing: 2px;
+    color: #fff;
+}
 /* div {
     display: flex;
     flex-direction: row;
 } */
 
-img {
-    max-height: 40px;
+.aboutImg {
+    max-height: 20px;
     max-width: 40px;
     margin: 0;
-    align-self: center;
+    padding: 0;
+    display: flex;
+    align-content: center;
 }

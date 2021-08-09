@@ -12,7 +12,7 @@ s3 = boto3.client(
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
 S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
-ALLOWED_EXTENSIONS = {"pdf", "txt", "wrd", "jpeg", "gif"}
+ALLOWED_EXTENSIONS = {"pdf", "txt", "docx"}
 
 
 def allowed_file(filename):

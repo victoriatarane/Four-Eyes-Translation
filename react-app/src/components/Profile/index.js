@@ -11,9 +11,6 @@ import RenderProofreadings from './RenderProofreadings';
 import RenderCopywriting from './RenderCopywritings';
 import Translation from '../Order/Translation';
 
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import SwiperCore, { Navigation, Pagination } from 'swiper';
-
 function User() {
   const dispatch = useDispatch();
   const history = useHistory()
@@ -51,7 +48,7 @@ function User() {
 
 
   return (
-    <div>
+    <div className={styles.orderDisplay}>
       <label className={styles.serviceDisplay}>My Orders:</label>
       {!translations.length && !proofreadings.length && !copywritings.length ? <p>None</p> : null}
         <div className={styles.profileLayout}>

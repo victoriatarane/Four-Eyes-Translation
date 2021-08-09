@@ -6,6 +6,7 @@ body {
 }
 
 .loginForm {
+    /* overflow:hidden; */
     top: 70px;
     position: fixed;
     font-family: 'Ropa Sans', sans-serif;

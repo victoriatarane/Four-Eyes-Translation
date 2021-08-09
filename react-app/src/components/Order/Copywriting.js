@@ -74,6 +74,24 @@ const Copywriting = ({copywriting, onSubmit}) => {
 
 
     const createCopywriting = async (e) => {
+        if (!field.length) {
+            setErrors(["Please let us know what the copywriting will be about."]);
+        }
+        if (!description.length) {
+            setErrors(["Please write a short summary of what would you like your order to be about."]);
+        }
+        if (!key_words.length) {
+            setErrors(["Please indicate the key words you would like to see in your order."]);
+        }
+        if (!links.length) {
+            setErrors(["Please let us know what to base information on."])
+        }
+        if (!word_count.length) {
+            setErrors(["Please indicate the desired length of your order."])
+        }
+        if (!language.length) {
+            setErrors(["Please indicate the target language of the order."])
+        }
         e.preventDefault();
         const data = await dispatch(addCopywriting({
             description, 
@@ -85,7 +103,8 @@ const Copywriting = ({copywriting, onSubmit}) => {
         }))
         console.log(data, "#####")
         if (data) {
-            setErrors(data)
+            // setErrors(data)
+            console.log(errors)
         } else {
             history.push('/profile')
         }
@@ -100,7 +119,7 @@ const Copywriting = ({copywriting, onSubmit}) => {
             </div>
             <div>
                 <label>Select topic:</label>
-                <select className={styles.selectInput} onChange={updateField}>
+                <select className={styles.selectInput} value={field} onChange={updateField}>
                     {fields.map(field =>
                         <option key={field} value={field}>{field}</option>)}
                 </select>
@@ -134,14 +153,14 @@ const Copywriting = ({copywriting, onSubmit}) => {
             </div>
             <div>
                 <label>Select optimal word count range:</label>
-                <select className={styles.selectInput} onChange={updateWord_count}>
+                <select className={styles.selectInput} value={word_count} onChange={updateWord_count}>
                     {ranges.map(range =>
                         <option key={range} value={range}>{range}</option>)}
                 </select>
             </div>
             <div>
                 <label>Select language:</label>
-                <select className={styles.selectInput} onChange={updateLanguage}>
+                <select className={styles.selectInput} value={language} onChange={updateLanguage}>
                     {languages.map(language =>
                         <option key={language} value={language}>{language}</option>)}
                 </select>

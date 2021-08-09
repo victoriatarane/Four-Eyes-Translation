@@ -8,24 +8,30 @@ const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
     if (edit === true) {
         // setEdit(!edit)
         return (
-            <Translation 
-                translation={translation.translation}
-                onSubmit={()=>setEdit(!edit)}/>
+            <div className={styles.transDiv}>
+                <Translation 
+                    translation={translation.translation}
+                    onSubmit={()=>setEdit(!edit)}/>
+            </div>
         )
     } else {
         return (
-            <ul className={styles.orderRender} key={translation.translation.id}>
-                <li>Document: 
-                    <a href={translation.translation.document_url}>{translation.translation.field} translation.</a>
-                </li>
-                <li>Field: {translation.translation.field}</li>
-                <li>Word count: {translation.translation.word_count}</li>
-                <li>Source language: {translation.translation.source_language}</li>
-                <li>Target language: {translation.translation.target_language}</li>
-                <li>Date created: {translation.translation.created_at}</li>
-                <button className={styles.editButton} onClick={()=>setEdit(!edit)}>📝</button>
-                <button className={styles.deleteButton} onClick={() => deleteOrder(translation)}>🗑</button>
-            </ul>
+            <div className={styles.transDiv}>
+                <ul className={styles.orderRender} key={translation.translation.id}>
+                    <li>Document: 
+                        <a href={translation.translation.document_url}>{translation.translation.field} translation.</a>
+                    </li>
+                    <li>Field: {translation.translation.field}</li>
+                    <li>Word count: {translation.translation.word_count}</li>
+                    <li>Source language: {translation.translation.source_language}</li>
+                    <li>Target language: {translation.translation.target_language}</li>
+                    <li>Date created: {translation.translation.created_at}</li>
+                </ul>
+                <div className={styles.buttons}>
+                    <button className={styles.editButton} onClick={()=>setEdit(!edit)}>📝</button>
+                    <button className={styles.deleteButton} onClick={() => deleteOrder(translation)}>🗑</button>
+                </div>
+            </div>
         )
     }
 }

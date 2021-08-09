@@ -58,6 +58,18 @@ const Translation = ({translation, onSubmit}) => {
         console.log(file)
     }
     const createTranslation = async (e) => {
+        if (!field.length) {
+            setErrors(["Please let us know what the translation will be about."]);
+        }
+        if (!word_count.length) {
+            setErrors(["Please indicate the length of your source document."]);
+        }
+        if (!source_language.length) {
+            setErrors(["Please indicate the source language of the translation."]);
+        }
+        if (!target_language.length) {
+            setErrors(["Please indicate the target language of the translation."])
+        }
         e.preventDefault();
         const formData = new FormData();
         formData.append("file", file);
@@ -70,7 +82,8 @@ const Translation = ({translation, onSubmit}) => {
         const data = await dispatch(addTranslation(formData))
         console.log(data, "#####")
         if (data) {
-            setErrors(data)
+            // setErrors(data)
+            console.log(errors)
         } else {
             console.log(field, word_count, source_language)
             console.log(translation, 'translation')

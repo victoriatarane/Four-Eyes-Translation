@@ -12,13 +12,13 @@ const NavBar2 = () => {
         <nav className={styles.navBar2}>
             <ul>
                 <li>
-                    <p>Victoria Tarane</p>
+                    <p className={styles.myName}>Victoria Tarane</p>
                 </li>
                 <li>
-                    <img src={linkedin} alt='LinkedIn' onClick={() => window.open("https://www.linkedin.com/in/victoria-tarane-54a86b5b/")} />
+                    <img className={styles.aboutImg} src={linkedin} alt='LinkedIn' onClick={() => window.open("https://www.linkedin.com/in/victoria-tarane-54a86b5b/")} />
                 </li>
                 <li>
-                    <img src={github} alt='GitHub' onClick={() => window.open("https://github.com/victoriatarane")} />
+                    <img className={styles.aboutImg} src={github} alt='GitHub' onClick={() => window.open("https://github.com/victoriatarane")} />
                 </li>
             </ul>
         </nav>
