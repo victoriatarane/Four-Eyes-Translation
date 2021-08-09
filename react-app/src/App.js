@@ -57,7 +57,7 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
-        <Route>
+        <Route path='/' exact={true} >
           <Page404 />
         </Route>
       </Switch>
