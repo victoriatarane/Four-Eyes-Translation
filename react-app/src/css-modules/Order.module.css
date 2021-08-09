@@ -91,9 +91,9 @@
 } 
 @media screen and (min-width: 1080px) {
     .orderForm {
-        width: 40%;
-        left: 30%;
-        right: 30%;
+        width: 70%;
+        left: 15%;
+        right: 15%;
     }
 
 }
