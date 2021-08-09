@@ -1,0 +1,62 @@
+
+.page404 {
+    height: 100%;
+    width: 100%;
+    /* height: 1000px;
+    width: 1200px; */
+    /* background-image: url('../../../assets/img/404-dog3.jpg'); */
+    /* background-size: cover;
+    box-sizing: border-box; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.page404__header {
+    font-size: 4em;
+    margin-bottom: 50px;
+    font-family: Dosis, Helvetica, sans-serif;
+    
+}
+
+.page404div {
+    height: 300px;
+    width: 1000px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-direction: row;
+}
+
+.page404p {
+    height: 100%;
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    font-size: 16em;
+    font-family: Dosis, Helvetica, sans-serif;
+    font-weight: 700;
+}
+
+.page404img {
+    display: flex;
+    justify-content: center;
+    height: 125%;
+    width: 100%;
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 50%;
+}
+
+.page404txt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 50px;
+    height: 20%;
+    font-size: 2.3em;
+    font-family: Dosis, Helvetica, sans-serif;
+}

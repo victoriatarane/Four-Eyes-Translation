@@ -12,6 +12,7 @@ import Home from './components/Home';
 import Order from './components/Order';
 import UploadFile from './components/Order/Upload';
 import { authenticate } from './store/session';
+import Page404 from '../src/components/error';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -56,6 +57,9 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
+        <Route>
+          <Page404 />
+        </Route>
       </Switch>
       <NavBar2/>
     </BrowserRouter>
