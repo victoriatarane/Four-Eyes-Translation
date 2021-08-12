@@ -12,10 +12,11 @@ import RenderCopywriting from './RenderCopywritings';
 import Translation from '../Order/Translation';
 
 function User() {
+
   const dispatch = useDispatch();
   const history = useHistory()
   const orders = useSelector((state) => state.session.user.orders)
-  useSelector((state) => console.log(state));
+  useSelector((state) =>console.log(state));
   // useEffect(()=> {
   // }, [state])
   const translations = useSelector((state) => state.session.user.orders.filter(order => order.translation));
@@ -32,6 +33,7 @@ function User() {
     } else if (order.proofreading) {
       await dispatch(editProofreading(order.proofreading))
     }
+    window.location.reload(false);
     history.push('/profile')
   }
   const deleteOrder = async (order) => {
@@ -43,6 +45,7 @@ function User() {
     } else if (order.proofreading) {
       await dispatch(deleteProofreading(order.proofreading))
     }
+    window.location.reload(false);
     history.push('/profile')
   }
 

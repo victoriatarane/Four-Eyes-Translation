@@ -52,7 +52,7 @@ const Proofreading = ({proofreading, onSubmit}) => {
         const file = e.target.files[0];
         setFile(file);
         setDocument_url(file)
-        console.log(file)
+       console.log(file)
     }
 
     const createProofreading = async (e) => {
@@ -74,17 +74,11 @@ const Proofreading = ({proofreading, onSubmit}) => {
         formData.append("language", language);
         setFileLoading(true);
         const data = await dispatch(addProofreading(formData))
-        console.log(data, "#####")
-        if (data) {
-            // setErrors(data)
-            console.log(errors)
-        } else {
-            setFileLoading(false);
-            history.push('/profile')
-        }
+        setFileLoading(false);
+        history.push('/profile')
+        window.location.reload(false);
+
     }
-    console.log(field, word_count, language)
-    console.log(proofreading, 'proofreading')
     return (
         <form className={styles.orderTranslation} onSubmit={proofreading ? (e)=>editOrder(e) : createProofreading}>
             <div>
@@ -108,13 +102,6 @@ const Proofreading = ({proofreading, onSubmit}) => {
                     value={word_count}>
                 </input>
             </div>
-            {/* <div>
-                <label>Select source language:</label>
-                <select onChange={updateSourceLanguage}>
-                    {languages.map(language =>
-                        <option key={language} value={language}>{language}</option>)}
-                </select>
-            </div> */}
             <div>
                 <label>Select language:</label>
                 <select className={styles.selectInput} value={language} onChange={updateLanguage}>
@@ -127,7 +114,7 @@ const Proofreading = ({proofreading, onSubmit}) => {
                     type="file"
                     accept="file/*"
                     onChange={updateFile}
-                // value={document_url}
+                    value={document_url}
                 />
                 {(fileLoading) && <p>Loading...</p>}
             </div>

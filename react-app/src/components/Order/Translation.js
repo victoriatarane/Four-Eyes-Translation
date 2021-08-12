@@ -55,7 +55,7 @@ const Translation = ({translation, onSubmit}) => {
         const file = e.target.files[0];
         setFile(file);
         setDocumentUrl(file)
-        console.log(file)
+    //    console.log(file)
     }
     const createTranslation = async (e) => {
         if (!field.length) {
@@ -80,16 +80,10 @@ const Translation = ({translation, onSubmit}) => {
         formData.append("target_language", target_language);
         setFileLoading(true);
         const data = await dispatch(addTranslation(formData))
-        console.log(data, "#####")
-        if (data) {
-            // setErrors(data)
-            console.log(errors)
-        } else {
-            console.log(field, word_count, source_language)
-            console.log(translation, 'translation')
-            setFileLoading(false);
-            history.push('/profile')
-        }
+        setFileLoading(false);
+        history.push('/profile')
+        window.location.reload(false);
+
     }
     return (
         <form className={styles.orderTranslation} onSubmit={translation ? (e)=>editOrder(e) : createTranslation}>

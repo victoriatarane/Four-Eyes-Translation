@@ -101,13 +101,8 @@ const Copywriting = ({copywriting, onSubmit}) => {
             word_count,
             language
         }))
-        console.log(data, "#####")
-        if (data) {
-            // setErrors(data)
-            console.log(errors)
-        } else {
-            history.push('/profile')
-        }
+        history.push('/profile')
+        window.location.reload(false);
     }
 
     return (

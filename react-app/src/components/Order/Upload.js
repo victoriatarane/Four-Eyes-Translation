@@ -31,7 +31,7 @@ const UploadFile = () => {
             setFileLoading(false);
             // a real app would probably use more advanced
             // error handling
-            console.log("error");
+           console.log("error");
         }
     }
 
@@ -39,7 +39,7 @@ const UploadFile = () => {
         const file = e.target.files[0];
         setFile(file);
         setDocumentUrl(file)
-        console.log(file)
+       console.log(file)
     }
 
     return (

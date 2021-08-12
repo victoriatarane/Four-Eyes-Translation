@@ -8,6 +8,7 @@ const RenderProofreadings = ({ proofreading, editOrder, deleteOrder }) => {
     const [edit, setEdit] = useState(false);
     if (edit === true) {
         // setEdit(!edit)
+        // window.location.reload(false);
         return (
             <div className={styles.editDiv}>
                 <Proofreading
@@ -19,7 +20,8 @@ const RenderProofreadings = ({ proofreading, editOrder, deleteOrder }) => {
         return (
             <div className={styles.transDiv}>
                 <ul className={styles.orderRender} key={proofreading.proofreading.id}>
-                    <li>Document: <a href={proofreading.proofreading.document_url}>{proofreading.proofreading.field} translation.</a></li>
+                    <li>Document: 
+                        <a href={proofreading.proofreading.document_url}>{proofreading.proofreading.field} translation.</a></li>
                     <li>Field: {proofreading.proofreading.field}</li>
                     <li>Word count: {proofreading.proofreading.word_count}</li>
                     <li>Language: {proofreading.proofreading.language}</li>

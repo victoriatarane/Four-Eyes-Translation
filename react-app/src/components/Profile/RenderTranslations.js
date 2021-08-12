@@ -7,6 +7,7 @@ const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
     const [edit, setEdit] = useState(false);
     if (edit === true) {
         // setEdit(!edit)
+        // window.location.reload(false);
         return (
             <div className={styles.transDiv}>
                 <Translation 

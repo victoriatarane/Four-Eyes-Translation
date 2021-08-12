@@ -33,7 +33,7 @@ const Order = ({translation, onSubmit}) => {
     // const onSubmit = async (e) => {
     //     e.preventDefault()
     //     setService(e.target.value)
-    //     console.log(service)
+    //    console.log(service)
     // }
     return (
         <div className={styles.orderForm}>
