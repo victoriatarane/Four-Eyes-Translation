@@ -79,10 +79,15 @@ const Translation = ({translation, onSubmit}) => {
         formData.append("source_language", source_language);
         formData.append("target_language", target_language);
         setFileLoading(true);
-        const data = await dispatch(addTranslation(formData))
+        // if (edited) {
+        //     await dispatch(editTranslation(formData))
+        // } else {
+        //     await dispatch(addTranslation(formData))
+        // }
+        await dispatch(addTranslation(formData))
         setFileLoading(false);
         history.push('/profile')
-        window.location.reload(false);
+        // window.location.reload(false);
 
     }
     return (

@@ -266,6 +266,7 @@ export const deleteCopywriting = (copywriting) => async (dispatch) => {
 
 
 const initialState = {};
+// const initialState = {translations: null, proofreadings: null, copywritings: null};
 let index;
 
 export default function reducer(state=initialState, action) {
@@ -273,15 +274,17 @@ export default function reducer(state=initialState, action) {
     switch (action.type) {
         case SET_ORDERS:
             newState = {...state};
-            action.payload.forEach((order) => {
-                newState[order.id] = order;
-            });
+            // action.payload.forEach((order) => {
+            //     newState[order.id] = order;
+            // });
+            newState = {...action.payload}
             return newState;
         case SET_TRANSLATION:
             newState = {...state};
-            action.payload.forEach((translation) => {
-                newState[translation.id] = translation;
-            });
+            // action.payload.forEach((translation) => {
+            //     newState[translation.id] = translation;
+            // });
+            newState = {...action.payload}
             return newState;
         case SET_COPYWRITING:
             newState = { ...state };
@@ -308,13 +311,11 @@ export default function reducer(state=initialState, action) {
             newState[action.payload.id] = action.payload;
             return newState;
         case EDIT_TRANSLATION:
-            newState = {...state};
-            newState.translation = [...state.translation];
-            index = newState.translation.findIndex((translation) => translation.id === action.payload.id)
-            newState.translation.splice(index, 1)
-            // newState[action.payload.id] = action.payload;
-            newState = { ...state };
-            newState[action.payload.id] = action.payload;
+            newState = {...state}; // tr1, tr2, tr3
+            // newState.translation = [...state.translation]; // tr2 = []
+            // index = newState.translation.findIndex((translation) => translation.id === action.payload.id)
+            // newState.translation.splice(index, 1, action.payload)
+            newState.current = action.payload;
             return newState;
         case EDIT_PROOFREADING:
             newState = { ...state };

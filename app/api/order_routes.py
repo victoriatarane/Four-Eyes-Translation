@@ -27,14 +27,16 @@ def validation_errors_to_error_messages(validation_errors):
 # Get translations by userID
 
 
-# @order_routes.route('/all/<int:user_id>', methods=['GET'])
-# # @translation_routes.route('/all/:user_id', methods=['GET'])
-# def get_all_orders():
-#     # print('UserId from get translation api route---------------------------------', user_id)
-#     orders = current_user.orders
-#     # translation_orders = list(filter(lambda order: order.translation, orders))
-#     # print('translationS from api get all------------', translations)
-#     return {"orders": [order.to_dict() for order in orders]}
+@order_routes.route('/all/<int:id>', methods=['GET'])
+# @translation_routes.route('/all/:user_id', methods=['GET'])
+def get_all_orders(id):
+    # print('UserId from get translation api route---------------------------------', user_id)
+    # orders = current_user.orders
+    orders = Order.query.filter_by(user_id=id).all()
+    print('orders', orders)
+    # translation_orders = list(filter(lambda order: order.translation, orders))
+    # print('translationS from api get all------------', translations)
+    return {order.id: order.to_dict() for order in orders}
 
 #Crate a new translation
 
