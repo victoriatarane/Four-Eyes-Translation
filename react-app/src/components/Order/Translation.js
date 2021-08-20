@@ -27,6 +27,7 @@ const Translation = ({translation, onSubmit}) => {
         await dispatch(editTranslation({id: translation.id, order_id: translation.order_id, document_url: translation.document_url, completion_status: translation.completion_status, created_at: translation.created_at, field, word_count, source_language, target_language}));
         await onSubmit();
         history.push('/profile')
+        window.location.reload(false);
     }
     useEffect(() => {
         if (translation) {
@@ -58,40 +59,47 @@ const Translation = ({translation, onSubmit}) => {
     //    console.log(file)
     }
     const createTranslation = async (e) => {
-        if (!field.length) {
-            setErrors(["Please let us know what the translation will be about."]);
-        }
-        if (!word_count.length) {
-            setErrors(["Please indicate the length of your source document."]);
-        }
-        if (!source_language.length) {
-            setErrors(["Please indicate the source language of the translation."]);
-        }
-        if (!target_language.length) {
-            setErrors(["Please indicate the target language of the translation."])
-        }
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("document_url", document_url);
-        formData.append("field", field);
-        formData.append("word_count", word_count);
-        formData.append("source_language", source_language);
-        formData.append("target_language", target_language);
-        setFileLoading(true);
-        const data = await dispatch(addTranslation(formData))
-        setFileLoading(false);
-        history.push('/profile')
-        window.location.reload(false);
-
+        let errorsToSet = [];
+        if (!field.length || !word_count.length || !source_language.length || !target_language.length || !document_url.length) {
+            if (!field.length) {
+                errorsToSet.push("Please let us know what the translation will be about.");
+            }
+            if (!word_count.length) {
+                errorsToSet.push("Please indicate the length of your source document.");
+            }
+            if (!source_language.length) {
+                errorsToSet.push("Please indicate the source language of the translation.");
+            }
+            if (!target_language.length) {
+                errorsToSet.push("Please indicate the target language of the translation.")
+            }
+            if (!document_url.length) {
+                errorsToSet.push("Please attach a translation source document.")
+            }
+            setErrors(errorsToSet);
+        } else {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("document_url", document_url);
+            formData.append("field", field);
+            formData.append("word_count", word_count);
+            formData.append("source_language", source_language);
+            formData.append("target_language", target_language);
+            setFileLoading(true);
+            const data = await dispatch(addTranslation(formData))
+            setFileLoading(false);
+            history.push('/profile')
+            window.location.reload(false);
+        }
     }
     return (
         <form className={styles.orderTranslation} onSubmit={translation ? (e)=>editOrder(e) : createTranslation}>
-            <div>
+            <ol>
                 {errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
+                    <li key={ind}>{error}</li>
                 ))}
-            </div>
+            </ol>
             <div>
                 <label>Select topic:</label>
                 <select className={styles.selectInput} onChange={updateField} value={field}>

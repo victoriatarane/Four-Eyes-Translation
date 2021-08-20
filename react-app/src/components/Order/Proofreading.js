@@ -25,7 +25,8 @@ const Proofreading = ({proofreading, onSubmit}) => {
         e.preventDefault()
         await dispatch(editProofreading({ id: proofreading.id, order_id: proofreading.order_id, document_url: proofreading.document_url, completion_status: proofreading.completion_status, created_at: proofreading.created_at, field, word_count, language }));
         await onSubmit();
-        history.push('/profile')
+        history.push('/profile');
+        window.location.reload(false);
     }
 
     useEffect(() => {
@@ -56,36 +57,43 @@ const Proofreading = ({proofreading, onSubmit}) => {
     }
 
     const createProofreading = async (e) => {
-        if (!field.length) {
-            setErrors(["Please let us know what the proofreading will be about."]);
-        }
-        if (!word_count.length) {
-            setErrors(["Please indicate the length of your source document."]);
-        }
-        if (!language.length) {
-            setErrors(["Please indicate the source language of the proofreading."]);
-        }
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("document_url", document_url);
-        formData.append("field", field);
-        formData.append("word_count", word_count);
-        formData.append("language", language);
-        setFileLoading(true);
-        const data = await dispatch(addProofreading(formData))
-        setFileLoading(false);
-        history.push('/profile')
-        window.location.reload(false);
-
+        let errorsToSet = [];
+        if (!field.length || !word_count.length || !language.length || !document_url.length) {
+            if (!field.length) {
+                errorsToSet.push("Please let us know what the proofreading will be about.");
+            }
+            if (!word_count.length) {
+                errorsToSet.push("Please indicate the length of your source document.");
+            }
+            if (!language.length) {
+                errorsToSet.push("Please indicate the source language of the proofreading.");
+            }
+            if (!document_url.length) {
+                errorsToSet.push("Please attach a translation source document.")
+            }
+            setErrors(errorsToSet);
+        } else {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("document_url", document_url);
+            formData.append("field", field);
+            formData.append("word_count", word_count);
+            formData.append("language", language);
+            setFileLoading(true);
+            const data = await dispatch(addProofreading(formData))
+            setFileLoading(false);
+            history.push('/profile')
+            window.location.reload(false);
+        }
     }
     return (
         <form className={styles.orderTranslation} onSubmit={proofreading ? (e)=>editOrder(e) : createProofreading}>
-            <div>
+            <ol>
                 {errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
+                    <li key={ind}>{error}</li>
                 ))}
-            </div>
+            </ol>
             <div>
                 <label>Select topic:</label>
                 <select className={styles.selectInput} value={field} onChange={updateField}>

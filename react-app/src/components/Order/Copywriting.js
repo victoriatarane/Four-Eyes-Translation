@@ -23,10 +23,11 @@ const Copywriting = ({copywriting, onSubmit}) => {
     const history = useHistory();
 
     const editOrder = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         await dispatch(editCopywriting({ id: copywriting.id, order_id: copywriting.order_id, description, completion_status: copywriting.completion_status, created_at: copywriting.created_at, field, word_count, language, key_words, links }));
         await onSubmit();
         history.push('/profile')
+        window.location.reload(false);
     }
     
     useEffect(() => {
@@ -74,44 +75,49 @@ const Copywriting = ({copywriting, onSubmit}) => {
 
 
     const createCopywriting = async (e) => {
-        if (!field.length) {
-            setErrors(["Please let us know what the copywriting will be about."]);
-        }
-        if (!description.length) {
-            setErrors(["Please write a short summary of what would you like your order to be about."]);
-        }
-        if (!key_words.length) {
-            setErrors(["Please indicate the key words you would like to see in your order."]);
-        }
-        if (!links.length) {
-            setErrors(["Please let us know what to base information on."])
-        }
-        if (!word_count.length) {
-            setErrors(["Please indicate the desired length of your order."])
-        }
-        if (!language.length) {
-            setErrors(["Please indicate the target language of the order."])
-        }
         e.preventDefault();
-        const data = await dispatch(addCopywriting({
-            description, 
-            key_words,
-            links,
-            field,
-            word_count,
-            language
-        }))
-        history.push('/profile')
-        window.location.reload(false);
+        let errorsToSet = [];
+        if (!field.length || !description.length || !key_words.length || !links.length || !word_count.length || !language.length){
+            if (!field.length) {
+                errorsToSet.push("Please let us know what the copywriting will be about.");
+            }
+            if (!description.length) {
+                errorsToSet.push("Please write a short summary of what would you like your order to be about.");
+            }
+            if (!key_words.length) {
+                errorsToSet.push("Please indicate the key words you would like to see in your order.");
+            }
+            if (!links.length) {
+                errorsToSet.push("Please let us know what to base information on.");
+            }
+            if (!word_count.length) {
+                errorsToSet.push("Please indicate the desired length of your order.");
+            }
+            if (!language.length) {
+                errorsToSet.push("Please indicate the target language of the order.");
+            }
+            setErrors(errorsToSet);
+        } else {
+            const data = await dispatch(addCopywriting({
+                description, 
+                key_words,
+                links,
+                field,
+                word_count,
+                language
+            }))
+            history.push('/profile')
+            window.location.reload(false);
+        }
     }
 
     return (
         <form className={styles.orderTranslation} onSubmit={copywriting ? (e)=>editOrder(e) : createCopywriting}>
-            <div>
+            <ol>
                 {errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
+                    <li key={ind}>{error}</li>
                 ))}
-            </div>
+            </ol>
             <div>
                 <label>Select topic:</label>
                 <select className={styles.selectInput} value={field} onChange={updateField}>

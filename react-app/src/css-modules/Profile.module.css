@@ -7,6 +7,10 @@
     width: 100%;
     /* box-sizing: border-box; */
 }
+.externalLink {
+    width: 20px;
+    height: 20px;
+}
 .editDiv {
     font-family: "proxima-nova", sans-serif;
     font-weight: 500;

@@ -1,7 +1,8 @@
 import styles from '../../css-modules/Profile.module.css';
 import {useState, useEffect} from 'react';
 import Translation from '../Order/'
-// import { NavLink } from 'react-router-dom';
+// import { Link } from "react-router";
+import picture from '../assets/logo_03.jpeg';
 
 const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
     const [edit, setEdit] = useState(false);
@@ -20,8 +21,10 @@ const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
             <div className={styles.transDiv}>
                 <ul className={styles.orderRender} key={translation.translation.id}>
                     <li>Document: 
-                        <a href={translation.translation.document_url}>{translation.translation.field} translation.</a>
+                        <a key={translation.translation.id} href={translation.translation.document_url}>{translation.translation.field} translation.</a>
                     </li>
+                    
+                    
                     <li>Field: {translation.translation.field}</li>
                     <li>Word count: {translation.translation.word_count}</li>
                     <li>Source language: {translation.translation.source_language}</li>

@@ -47,6 +47,7 @@ function User() {
     }
     window.location.reload(false);
     history.push('/profile')
+    window.location.reload(false);
   }
 
 
