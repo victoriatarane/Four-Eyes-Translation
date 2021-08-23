@@ -154,13 +154,13 @@ export const addProofreading = (formData) => async (dispatch) => {
     }
 }
 
-export const addCopywriting = (copywriting) => async (dispatch) => {
+export const addCopywriting = (formData) => async (dispatch) => {
     const response = await fetch(`/api/copywritings/create`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(copywriting)
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // },
+        body: formData
     })
     if (response.ok) {
         const newCopywriting = await response.json();
@@ -309,28 +309,31 @@ export default function reducer(state=initialState, action) {
             return newState;
         case EDIT_TRANSLATION:
             newState = {...state};
-            newState.translation = [...state.translation];
-            index = newState.translation.findIndex((translation) => translation.id === action.payload.id)
-            newState.translation.splice(index, 1)
+            newState.current = action.payload;
+            // newState.translation = [...state.translation];
+            // index = newState.translation.findIndex((translation) => translation.id === action.payload.id)
+            // newState.translation.splice(index, 1)
+            // // newState[action.payload.id] = action.payload;
+            // newState = { ...state };
             // newState[action.payload.id] = action.payload;
-            newState = { ...state };
-            newState[action.payload.id] = action.payload;
             return newState;
         case EDIT_PROOFREADING:
             newState = { ...state };
-            newState.proofreading = [...state.proofreading];
-            index = newState.proofreading.findIndex((proofreading) => proofreading.id === action.payload.id)
-            newState.proofreading.splice(index, 1)
-            newState = { ...state };
-            newState[action.payload.id] = action.payload;
+            newState.current = action.payload;
+            // newState.proofreading = [...state.proofreading];
+            // index = newState.proofreading.findIndex((proofreading) => proofreading.id === action.payload.id)
+            // newState.proofreading.splice(index, 1)
+            // newState = { ...state };
+            // newState[action.payload.id] = action.payload;
             return newState;
         case EDIT_COPYWRITING:
             newState = { ...state };
-            newState.copywriting = [...state.copywriting];
-            index = newState.copywriting.findIndex((copywriting) => copywriting.id === action.payload.id)
-            newState.copywriting.splice(index, 1)
-            newState = { ...state };
-            newState[action.payload.id] = action.payload;
+            newState.current = action.payload;
+            // newState.copywriting = [...state.copywriting];
+            // index = newState.copywriting.findIndex((copywriting) => copywriting.id === action.payload.id)
+            // newState.copywriting.splice(index, 1)
+            // newState = { ...state };
+            // newState[action.payload.id] = action.payload;
             return newState;
         case DELETE_TRANSLATION:
             newState = { ...state };

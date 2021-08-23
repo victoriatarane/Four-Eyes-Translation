@@ -53,7 +53,6 @@ const Proofreading = ({proofreading, onSubmit}) => {
         const file = e.target.files[0];
         setFile(file);
         setDocument_url(file)
-       console.log(file)
     }
 
     const createProofreading = async (e) => {

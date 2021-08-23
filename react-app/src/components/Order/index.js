@@ -7,9 +7,14 @@ import Translation from './Translation';
 import Proofreading from './Proofreading';
 import Copywriting from './Copywriting';
 
-const Order = ({translation, onSubmit}) => {
+const Order = ({translation, proofreading, copywriting, onSubmit}) => {
     const [errors, setErrors] = useState([]);
     const [service, setService] = useState('Translation')
+    if (proofreading) {
+        setService('Proofreading')
+    } else if (copywriting) {
+        setService('Copywriting')
+    }
     const [wordCount, setWordCount] = useState(0);
     const languages = ['German', 'English', 'Spanish'];
     const fields = ['Science', 'Finance'];
@@ -68,8 +73,8 @@ const Order = ({translation, onSubmit}) => {
             </div>
             <div className={styles.serviceForm}>
                 {service === 'Translation' ? <Translation translation={translation} onSubmit={onSubmit}/> : null}
-                {service === 'Proofreading' ? <Proofreading /> : null}
-                {service === 'Copywriting' ? <Copywriting /> : null}
+                {service === 'Proofreading' ? <Proofreading proofreading={proofreading} onSubmit={onSubmit}/> : null}
+                {service === 'Copywriting' ? <Copywriting copywriting={copywriting} onSubmit={onSubmit}/> : null}
             </div>
             {/* <button className={styles.submitButton} type='submit'>Continue</button> */}
         </div>

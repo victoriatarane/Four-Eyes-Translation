@@ -42,7 +42,7 @@ def get_all_copywritings():
 def create_copywriting():
     form = NewCopywritingForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print(form.data)
+    # print(form.data)
     if form.validate_on_submit():
         user = current_user
         order = Order(user_id=user.id)
@@ -59,7 +59,7 @@ def create_copywriting():
             language=form.language.data)
         db.session.add(copywriting)
         db.session.commit()
-        print(copywriting, '######')
+        # print(copywriting, '######')
         return copywriting.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -68,7 +68,7 @@ def create_copywriting():
 @copywriting_routes.route('/<int:copywriting_id>', methods=['PUT'])
 def update_copywriting(copywriting_id):
     copywriting = Copywriting.query.get(copywriting_id)
-    if Copywriting is None:
+    if copywriting is None:
         return {'message': 'No Copywriting found'}, 404
     data = request.get_json()
     # copywriting.user_id = data["user_id"],

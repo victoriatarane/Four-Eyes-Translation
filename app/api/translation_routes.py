@@ -83,7 +83,7 @@ def create_translation():
             target_language=form.target_language.data)
         db.session.add(translation)
         db.session.commit()
-        print(translation, '######')
+        # print(translation, '######')
         return translation.to_dict()
     # if request.method == 'GET':
     #     return {'string': 'value'}

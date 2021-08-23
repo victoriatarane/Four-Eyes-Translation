@@ -16,7 +16,7 @@ function User() {
   const dispatch = useDispatch();
   const history = useHistory()
   const orders = useSelector((state) => state.session.user.orders)
-  useSelector((state) =>console.log(state));
+  // useSelector((state) =>console.log(state));
   // useEffect(()=> {
   // }, [state])
   const translations = useSelector((state) => state.session.user.orders.filter(order => order.translation));
@@ -28,9 +28,11 @@ function User() {
   const editOrder = async (order) => {
     if (order.translation) {
       await dispatch(editTranslation(order.translation))
-    } else if (order.copywriting) {
+    }
+    if (order.copywriting) {
       await dispatch(editCopywriting(order.copywriting))
-    } else if (order.proofreading) {
+    }
+    if (order.proofreading) {
       await dispatch(editProofreading(order.proofreading))
     }
     window.location.reload(false);
@@ -47,7 +49,7 @@ function User() {
     }
     window.location.reload(false);
     history.push('/profile')
-    window.location.reload(false);
+    // window.location.reload(false);
   }
 
 

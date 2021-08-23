@@ -13,7 +13,7 @@ const RenderProofreadings = ({ proofreading, editOrder, deleteOrder }) => {
             <div className={styles.editDiv}>
                 <Proofreading
                     proofreading={proofreading.proofreading}
-                    onSubmit={() => setEdit(!edit)} />
+                    onSubmit={()=>setEdit(!edit)} />
             </div>
         )
     } else {

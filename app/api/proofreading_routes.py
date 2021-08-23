@@ -77,7 +77,7 @@ def create_proofreading():
             language=form.language.data)
         db.session.add(proofreading)
         db.session.commit()
-        print(proofreading, '######')
+        # print(proofreading, '######')
         return proofreading.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -90,7 +90,7 @@ def update_proofreading(proofreading_id):
         return {'message': 'No proofreading found'}, 404
     data = request.get_json()
     # proofreading.user_id = data["user_id"],
-    proofreading.document_url = data["document_url"],
+    # proofreading.document_url = data["document_url"],
     proofreading.field = data["field"],
     proofreading.word_count = data["word_count"],
     proofreading.language = data["language"]

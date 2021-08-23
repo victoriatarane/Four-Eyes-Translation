@@ -56,7 +56,6 @@ const Translation = ({translation, onSubmit}) => {
         const file = e.target.files[0];
         setFile(file);
         setDocumentUrl(file)
-    //    console.log(file)
     }
     const createTranslation = async (e) => {
         e.preventDefault();

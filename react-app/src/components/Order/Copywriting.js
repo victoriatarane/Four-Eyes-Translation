@@ -98,14 +98,14 @@ const Copywriting = ({copywriting, onSubmit}) => {
             }
             setErrors(errorsToSet);
         } else {
-            const data = await dispatch(addCopywriting({
-                description, 
-                key_words,
-                links,
-                field,
-                word_count,
-                language
-            }))
+            const formData = new FormData();
+            formData.append("description", description);
+            formData.append("key_words", key_words);
+            formData.append("links", links);
+            formData.append("field", field);
+            formData.append("word_count", word_count);
+            formData.append("language", language);
+            const data = await dispatch(addCopywriting(formData));
             history.push('/profile')
             window.location.reload(false);
         }
