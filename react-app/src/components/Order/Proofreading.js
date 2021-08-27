@@ -121,7 +121,7 @@ const Proofreading = ({proofreading, onSubmit}) => {
                     type="file"
                     accept="file/*"
                     onChange={updateFile}
-                    value={document_url}
+                    // value={document_url}
                 />
                 {(fileLoading) && <p>Loading...</p>}
             </div>

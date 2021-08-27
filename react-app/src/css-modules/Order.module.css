@@ -97,7 +97,7 @@
     }
 
 }
-@media screen and (max-width: 1079px) {
+@media screen and (max-width: 599px) {
     .orderForm {
         width: 90%;
     }
