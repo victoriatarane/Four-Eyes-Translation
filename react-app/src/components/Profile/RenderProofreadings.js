@@ -21,7 +21,7 @@ const RenderProofreadings = ({ proofreading, editOrder, deleteOrder }) => {
             <div className={styles.transDiv}>
                 <ul className={styles.orderRender} key={proofreading.proofreading.id}>
                     <li>Document: 
-                        <a href={proofreading.proofreading.document_url}>{proofreading.proofreading.field} translation.</a></li>
+                        <a className={styles.anchorTag} href={proofreading.proofreading.document_url}>{proofreading.proofreading.field} translation.</a></li>
                     <li>Field: {proofreading.proofreading.field}</li>
                     <li>Word count: {proofreading.proofreading.word_count}</li>
                     <li>Language: {proofreading.proofreading.language}</li>

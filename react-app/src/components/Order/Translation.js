@@ -60,7 +60,7 @@ const Translation = ({translation, onSubmit}) => {
     const createTranslation = async (e) => {
         e.preventDefault();
         let errorsToSet = [];
-        if (!field.length || !word_count.length || !source_language.length || !target_language.length || !document_url.length) {
+        if (!field.length || !word_count.length || !source_language.length || !target_language.length || !document_url) {
             if (!field.length) {
                 errorsToSet.push("Please let us know what the translation will be about.");
             }
@@ -73,7 +73,7 @@ const Translation = ({translation, onSubmit}) => {
             if (!target_language.length) {
                 errorsToSet.push("Please indicate the target language of the translation.")
             }
-            if (!document_url.length) {
+            if (!document_url) {
                 errorsToSet.push("Please attach a translation source document.")
             }
             setErrors(errorsToSet);
@@ -93,7 +93,7 @@ const Translation = ({translation, onSubmit}) => {
         }
     }
     return (
-        <form className={styles.orderTranslation} onSubmit={translation ? (e)=>editOrder(e) : createTranslation}>
+        <form className={styles.orderTranslation} onSubmit={translation ? (e) => editOrder(e) : createTranslation}>
             <ol>
                 {errors.map((error, ind) => (
                     <li key={ind}>{error}</li>
@@ -140,10 +140,12 @@ const Translation = ({translation, onSubmit}) => {
                 />
                 {(fileLoading) && <p>Loading...</p>}
             </div>
+            { translation ? null : 
             <div>
                 <label className={styles.price}>Your total:</label>
                 <p className={styles.price}>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
+            }
             <button className={styles.submitButton} type='submit'>Submit</button>
         </form>
     );

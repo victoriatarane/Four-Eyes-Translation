@@ -7,7 +7,9 @@ body {
 
 .loginForm {
     /* overflow:hidden; */
-    top: 170px;
+    top: 130px;
+    bottom: 75px;
+    overflow: auto;
     position: fixed;
     font-family: 'Ropa Sans', sans-serif;
     color: white;

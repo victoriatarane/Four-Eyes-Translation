@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import styles from '../css-modules/SplashPage.module.css'
 import img_url from './assets/logo_03.jpeg';
+import img_2_url from './assets/logoName.png'
 
 function SplashPage() {
     // const user = useSelector(state => state.session.user);
@@ -13,7 +14,7 @@ function SplashPage() {
 
     return (
         <div className={styles.splashDiv}>
-            <h1>Four Eyes Translation</h1>
+            <img src={img_2_url} alt="FOUR EYES TRANSLATION"/>
             <img className={styles.logo_img} src={img_url} alt="Logo Glasses" />
         </div>
     )

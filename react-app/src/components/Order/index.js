@@ -56,6 +56,7 @@ const Order = ({translation, proofreading, copywriting, onSubmit}) => {
                 <input type="radio" id="proofreading" name="service" value="proofreading"/>
                     <label>Proofreading</label>
             </div> */}
+            {translation ? null : 
             <div className={styles.selectService}>
                 <button className={styles.bookmark} onClick={orderTranslation}>
                     Translation
@@ -70,7 +71,7 @@ const Order = ({translation, proofreading, copywriting, onSubmit}) => {
                 <button className={styles.bookmark} onClick={orderCopywriting}>
                     Copywriting
                 </button><br className={styles.underOrderSelection}/>
-            </div>
+            </div>}
             <div className={styles.serviceForm}>
                 {service === 'Translation' ? <Translation translation={translation} onSubmit={onSubmit}/> : null}
                 {service === 'Proofreading' ? <Proofreading proofreading={proofreading} onSubmit={onSubmit}/> : null}

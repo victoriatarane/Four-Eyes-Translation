@@ -53,7 +53,7 @@ def create_proofreading():
     file.filename = get_unique_filename(file.filename)
 
     upload = upload_file_to_s3(file)
-
+    print('UPLOAD', upload)
     if "document_url" not in upload:
         # if the dictionary doesn't have a url key
         # it means that there was an error when we tried to upload

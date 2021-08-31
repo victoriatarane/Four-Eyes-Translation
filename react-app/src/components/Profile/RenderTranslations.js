@@ -21,7 +21,7 @@ const RenderTranslations = ({translation, editOrder, deleteOrder}) => {
             <div className={styles.transDiv}>
                 <ul className={styles.orderRender} key={translation.translation.id}>
                     <li>Document: 
-                        <a key={translation.translation.id} href={translation.translation.document_url}>{translation.translation.field} translation.</a>
+                        <a className={styles.anchorTag} key={translation.translation.id} href={translation.translation.document_url}>{translation.translation.field} translation.</a>
                     </li>
                     
                     

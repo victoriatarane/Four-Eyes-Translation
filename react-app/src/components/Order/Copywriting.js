@@ -166,10 +166,12 @@ const Copywriting = ({copywriting, onSubmit}) => {
                         <option key={language} value={language}>{language}</option>)}
                 </select>
             </div>
+            {copywriting ? null : 
             <div>
                 <label className={styles.price}>Your total:</label>
                 <p className={styles.price}>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
+            }
             <button className={styles.submitButton} type='submit'>Continue</button>
         </form>
     );

@@ -51,14 +51,14 @@ const Proofreading = ({proofreading, onSubmit}) => {
 
     const updateFile = (e) => {
         const file = e.target.files[0];
-        setFile(file);
         setDocument_url(file)
+        setFile(file);
     }
 
     const createProofreading = async (e) => {
         e.preventDefault();
         let errorsToSet = [];
-        if (!field.length || !word_count.length || !language.length || !document_url.length) {
+        if (!field.length || !word_count.length || !language.length || !document_url) {
             if (!field.length) {
                 errorsToSet.push("Please let us know what the proofreading will be about.");
             }
@@ -68,8 +68,8 @@ const Proofreading = ({proofreading, onSubmit}) => {
             if (!language.length) {
                 errorsToSet.push("Please indicate the source language of the proofreading.");
             }
-            if (!document_url.length) {
-                errorsToSet.push("Please attach a translation source document.")
+            if (!document_url) {
+                errorsToSet.push("Please attach a proofreading source document.")
             }
             setErrors(errorsToSet);
         } else {
@@ -125,10 +125,12 @@ const Proofreading = ({proofreading, onSubmit}) => {
                 />
                 {(fileLoading) && <p>Loading...</p>}
             </div>
+            {proofreading ? null : 
             <div>
                 <label className={styles.price}>Your total:</label>
                 <p className={styles.price}>${Number.parseFloat(total).toFixed(2)}</p>
             </div>
+            }
             <button className={styles.submitButton} type='submit'>Continue</button>
         </form>
     );

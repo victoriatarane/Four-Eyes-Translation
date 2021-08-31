@@ -36,6 +36,20 @@
     border-radius: 20px; 
 }
 
+@media screen and (min-width: 1080px) {
+    .editDiv {
+        width: 70%;
+        left: 15%;
+        right: 15%;
+    }
+
+}
+@media screen and (max-width: 599px) {
+    .editDiv {
+        width: 90%;
+    }
+}
+
 .orderForm {
     /* right: 0; */
     display: flex;
@@ -83,6 +97,9 @@
     width: 100%;
     box-sizing: border-box;
  }
+.anchorTag {
+    color: rgb(78, 33, 1);
+}
 
 .buttons {
     display: flex;

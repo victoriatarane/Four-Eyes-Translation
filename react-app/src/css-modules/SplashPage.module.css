@@ -12,7 +12,9 @@ body {
 
 .splashDiv {
     position: static;
-    margin-top: 10%;
+    margin-top:5%;
+    top: 150px;
+    bottom: 70px;
 
     display: flex;
     flex-direction: column;
