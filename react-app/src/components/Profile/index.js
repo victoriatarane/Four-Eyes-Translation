@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTranslation, getCopywriting, getProofreading } from '../../store/orders';
-import { getOrders } from '../../store/orders';
 import styles from '../../css-modules/Profile.module.css';
 import { editTranslation, editProofreading, editCopywriting } from '../../store/orders';
 import { deleteTranslation, deleteProofreading, deleteCopywriting } from '../../store/orders';
@@ -16,7 +15,7 @@ function User() {
   const dispatch = useDispatch();
   const history = useHistory()
   const orders = useSelector((state) => state.session.user.orders)
-  // useSelector((state) =>console.log(state));
+  const userId = useSelector((state) => state.session.user);
   // useEffect(()=> {
   // }, [state])
   const translations = useSelector((state) => state.session.user.orders.filter(order => order.translation));
@@ -47,9 +46,10 @@ function User() {
     } else if (order.proofreading) {
       await dispatch(deleteProofreading(order.proofreading))
     }
-    window.location.reload(false);
-    history.push('/profile')
     // window.location.reload(false);
+    history.push('/profile')
+    // dispatch(getTranslation())
+    window.location.reload(false);
   }
 
 
